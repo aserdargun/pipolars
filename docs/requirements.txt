@@ -1,0 +1,21 @@
+# Documentation dependencies for PIPolars
+# These are installed by Read the Docs during build
+
+# Sphinx core
+sphinx>=7.2.0
+sphinx-autobuild>=2024.2.0
+
+# Theme
+furo>=2024.1.0
+
+# Extensions
+sphinx-copybutton>=0.5.2
+sphinxcontrib-spelling>=8.0.0
+
+# For autodoc to work, we need these
+polars>=1.0.0
+pydantic>=2.0.0
+pydantic-settings>=2.0.0
+
+# Note: pythonnet is not installed on Linux (RTD build environment)
+# The conf.py uses autodoc_mock_imports to handle this

@@ -10,7 +10,8 @@
       "Bash(set UV_LINK_MODE=copy)",
       "Bash(\".venv\\\\Scripts\\\\ruff.exe\" check src)",
       "Bash(\".venv\\\\Scripts\\\\python.exe\" -m pytest tests/unit -v)",
-      "Bash(\".venv\\\\Scripts\\\\python.exe\" -m mypy src)"
+      "Bash(\".venv\\\\Scripts\\\\python.exe\" -m mypy src)",
+      "Bash(mkdir -p:*)"
     ]
   }
 }
