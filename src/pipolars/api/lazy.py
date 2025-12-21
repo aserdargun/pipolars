@@ -22,7 +22,7 @@ class LazyOperation:
     """Represents a lazy operation to be applied."""
 
     name: str
-    func: Callable[[pl.LazyFrame], pl.LazyFrame]
+    func: Callable[..., pl.LazyFrame]
     kwargs: dict[str, Any] = field(default_factory=dict)
 
 

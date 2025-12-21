@@ -8,14 +8,11 @@ from __future__ import annotations
 
 import logging
 from contextlib import contextmanager
-from typing import TYPE_CHECKING, Any, Generator, Iterator
+from typing import Any, Generator, Iterator
 
 from pipolars.connection.sdk import get_sdk_manager
 from pipolars.core.config import PIServerConfig
 from pipolars.core.exceptions import PIConnectionError, PIPointNotFoundError
-
-if TYPE_CHECKING:
-    from pipolars.extraction.points import PIPoint
 
 logger = logging.getLogger(__name__)
 

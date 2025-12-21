@@ -56,7 +56,7 @@ class DigitalStateMapper:
         self._reverse_sets: dict[str, dict[str, int]] = {}
 
         # Pre-populate system states
-        self._system_states = {
+        self._system_states: dict[int, str] = {
             SystemDigitalState.NO_DATA: "No Data",
             SystemDigitalState.BAD_INPUT: "Bad Input",
             SystemDigitalState.CALC_OFF: "Calc Off",
@@ -91,8 +91,8 @@ class DigitalStateMapper:
             # For now, return a placeholder that would be populated
             # when actually connected to PI
 
-            state_map = {}
-            reverse_map = {}
+            state_map: dict[int, str] = {}
+            reverse_map: dict[str, int] = {}
 
             # Store for future use
             self._state_sets[state_set_name] = state_map

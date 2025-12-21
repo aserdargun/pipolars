@@ -204,7 +204,7 @@ class PIAFSDKError(PIPolarsError):
         sdk_error_code: int | None = None,
         sdk_message: str | None = None,
     ) -> None:
-        details = {}
+        details: dict[str, Any] = {}
         if sdk_error_code is not None:
             details["sdk_error_code"] = sdk_error_code
         if sdk_message:

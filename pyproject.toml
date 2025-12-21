@@ -30,6 +30,8 @@ dependencies = [
     "pydantic>=2.10.0",
     "pydantic-settings>=2.6.0",
     "pyarrow>=18.0.0",
+    "tzdata>=2024.1",
+    "tomli>=2.0.0; python_version < '3.11'",
 ]
 
 [project.optional-dependencies]
@@ -60,8 +62,8 @@ build-backend = "hatchling.build"
 [tool.hatch.build.targets.wheel]
 packages = ["src/pipolars"]
 
-[tool.uv]
-dev-dependencies = [
+[dependency-groups]
+dev = [
     "pytest>=8.3.0",
     "pytest-cov>=6.0.0",
     "pytest-asyncio>=0.24.0",
@@ -109,6 +111,9 @@ module = [
     "clr",
     "System.*",
     "OSIsoft.*",
+    "pyarrow",
+    "pyarrow.*",
+    "pythonnet",
 ]
 ignore_missing_imports = true
 

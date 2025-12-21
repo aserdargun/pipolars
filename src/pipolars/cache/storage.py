@@ -285,13 +285,16 @@ class SQLiteCache(CacheBackendBase):
         sink = pa.BufferOutputStream()
         with ipc.new_stream(sink, arrow_table.schema) as writer:
             writer.write_table(arrow_table)
-        return sink.getvalue().to_pybytes()
+        result: bytes = sink.getvalue().to_pybytes()
+        return result
 
     def _deserialize_df(self, data: bytes) -> pl.DataFrame:
         """Deserialize bytes to a DataFrame."""
         reader = ipc.open_stream(data)
         arrow_table = reader.read_all()
-        return pl.from_arrow(arrow_table)
+        result = pl.from_arrow(arrow_table)
+        assert isinstance(result, pl.DataFrame)
+        return result
 
     def get(self, key: str) -> pl.DataFrame | None:
         """Retrieve data from the cache."""

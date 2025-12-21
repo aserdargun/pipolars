@@ -341,26 +341,26 @@ class SummaryResult:
 # Polars schema definitions for PI data
 PI_VALUE_SCHEMA: dict[str, pl.DataType] = {
     "timestamp": pl.Datetime("us", "UTC"),
-    "value": pl.Float64,
-    "quality": pl.Int8,
+    "value": pl.Float64(),
+    "quality": pl.Int8(),
 }
 
 PI_VALUE_WITH_TAG_SCHEMA: dict[str, pl.DataType] = {
-    "tag": pl.Utf8,
+    "tag": pl.Utf8(),
     "timestamp": pl.Datetime("us", "UTC"),
-    "value": pl.Float64,
-    "quality": pl.Int8,
+    "value": pl.Float64(),
+    "quality": pl.Int8(),
 }
 
 SUMMARY_SCHEMA: dict[str, pl.DataType] = {
-    "tag": pl.Utf8,
+    "tag": pl.Utf8(),
     "start": pl.Datetime("us", "UTC"),
     "end": pl.Datetime("us", "UTC"),
-    "average": pl.Float64,
-    "minimum": pl.Float64,
-    "maximum": pl.Float64,
-    "total": pl.Float64,
-    "count": pl.Int64,
-    "std_dev": pl.Float64,
-    "percent_good": pl.Float64,
+    "average": pl.Float64(),
+    "minimum": pl.Float64(),
+    "maximum": pl.Float64(),
+    "total": pl.Float64(),
+    "count": pl.Int64(),
+    "std_dev": pl.Float64(),
+    "percent_good": pl.Float64(),
 }

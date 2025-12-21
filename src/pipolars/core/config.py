@@ -6,10 +6,16 @@ and supports loading from environment variables and configuration files.
 
 from __future__ import annotations
 
+import sys
 from datetime import timedelta
 from enum import Enum
 from pathlib import Path
 from typing import Any
+
+if sys.version_info >= (3, 11):
+    import tomllib
+else:
+    import tomli as tomllib  # type: ignore[import-not-found]
 
 from pydantic import Field, SecretStr, field_validator, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -236,11 +242,6 @@ class PIConfig(BaseSettings):
         path = Path(path)
 
         if path.suffix == ".toml":
-            try:
-                import tomllib
-            except ImportError:
-                import tomli as tomllib  # type: ignore
-
             with open(path, "rb") as f:
                 data = tomllib.load(f)
         elif path.suffix == ".json":

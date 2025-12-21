@@ -7,7 +7,7 @@ timestamps between PI System and Polars formats.
 from __future__ import annotations
 
 from datetime import datetime, timedelta, timezone
-from typing import Any
+from typing import Any, Literal
 from zoneinfo import ZoneInfo
 
 import polars as pl
@@ -244,7 +244,7 @@ class TimestampHandler:
     def to_polars_datetime(
         self,
         timestamps: list[datetime],
-        time_unit: str = "us",
+        time_unit: Literal["ns", "us", "ms"] = "us",
     ) -> pl.Series:
         """Convert timestamps to a Polars datetime Series.
 

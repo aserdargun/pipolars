@@ -226,7 +226,7 @@ class AFElementExtractor:
         Returns:
             List of ElementInfo from root to element
         """
-        result = []
+        result: list[ElementInfo] = []
         current_path = path
 
         while current_path:

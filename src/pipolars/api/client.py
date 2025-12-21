@@ -275,13 +275,13 @@ class PIClient:
 
         if len(tags_list) == 1:
             # Single tag
-            extractor = self._get_point_extractor()
-            values = extractor.recorded_values(tags_list[0], start, end)
+            point_extractor = self._get_point_extractor()
+            values = point_extractor.recorded_values(tags_list[0], start, end)
             return self._converter.values_to_dataframe(values, include_quality)
         else:
             # Multiple tags
-            extractor = self._get_bulk_extractor()
-            tag_values = extractor.recorded_values(tags_list, start, end, max_count)
+            bulk_extractor = self._get_bulk_extractor()
+            tag_values = bulk_extractor.recorded_values(tags_list, start, end, max_count)
             return self._converter.multi_tag_to_dataframe(
                 tag_values, include_quality, pivot
             )
@@ -315,14 +315,14 @@ class PIClient:
         tags_list = [tags] if isinstance(tags, str) else tags
 
         if len(tags_list) == 1:
-            extractor = self._get_point_extractor()
-            values = extractor.interpolated_values(
+            point_extractor = self._get_point_extractor()
+            values = point_extractor.interpolated_values(
                 tags_list[0], start, end, interval
             )
             return self._converter.values_to_dataframe(values, include_quality)
         else:
-            extractor = self._get_bulk_extractor()
-            tag_values = extractor.interpolated_values(
+            bulk_extractor = self._get_bulk_extractor()
+            tag_values = bulk_extractor.interpolated_values(
                 tags_list, start, end, interval
             )
             return self._converter.multi_tag_to_dataframe(
@@ -382,15 +382,15 @@ class PIClient:
         tags_list = [tags] if isinstance(tags, str) else tags
 
         if len(tags_list) == 1:
-            extractor = self._get_point_extractor()
-            summaries = extractor.summary(tags_list[0], start, end, summary_types)
+            point_extractor = self._get_point_extractor()
+            tag_summaries = point_extractor.summary(tags_list[0], start, end, summary_types)
             return self._converter.summaries_to_dataframe(
-                {tags_list[0]: summaries}
+                {tags_list[0]: tag_summaries}
             )
         else:
-            extractor = self._get_bulk_extractor()
-            summaries = extractor.summaries(tags_list, start, end, summary_types)
-            return self._converter.summaries_to_dataframe(summaries)
+            bulk_extractor = self._get_bulk_extractor()
+            all_summaries = bulk_extractor.summaries(tags_list, start, end, summary_types)
+            return self._converter.summaries_to_dataframe(all_summaries)
 
     def summaries(
         self,

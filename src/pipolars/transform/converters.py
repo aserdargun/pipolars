@@ -6,8 +6,9 @@ transforming PI System data structures into Polars DataFrames.
 
 from __future__ import annotations
 
+from collections.abc import Mapping, Sequence
 from datetime import datetime
-from typing import Any, Sequence
+from typing import Any
 
 import polars as pl
 
@@ -75,9 +76,9 @@ class PIToPolarsConverter:
         )
 
         # Build column lists for efficient DataFrame construction
-        timestamps = []
-        data_values = []
-        qualities = [] if include_quality else None
+        timestamps: list[datetime] = []
+        data_values: list[float | None] = []
+        qualities: list[int] | None = [] if include_quality else None
 
         for pv in values:
             timestamps.append(pv.timestamp)
@@ -119,7 +120,7 @@ class PIToPolarsConverter:
 
     def multi_tag_to_dataframe(
         self,
-        tag_values: dict[str, Sequence[PIValue]],
+        tag_values: Mapping[str, Sequence[PIValue]],
         include_quality: bool | None = None,
         pivot: bool = False,
     ) -> pl.DataFrame:
@@ -147,10 +148,10 @@ class PIToPolarsConverter:
         )
 
         # Collect all data in lists
-        all_tags = []
-        all_timestamps = []
-        all_values = []
-        all_qualities = [] if include_quality else None
+        all_tags: list[str] = []
+        all_timestamps: list[datetime] = []
+        all_values: list[float | None] = []
+        all_qualities: list[int] | None = [] if include_quality else None
 
         for tag_name, values in tag_values.items():
             for pv in values:
@@ -286,7 +287,7 @@ class PIToPolarsConverter:
         Returns:
             Polars Series of values
         """
-        data_values = []
+        data_values: list[float | None] = []
         for pv in values:
             if isinstance(pv.value, (int, float)):
                 data_values.append(float(pv.value))

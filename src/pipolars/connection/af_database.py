@@ -226,7 +226,7 @@ class AFDatabaseConnection:
             else:
                 elements = self._database.Elements
 
-            result = []
+            result: list[Any] = []
             for element in elements:
                 if len(result) >= max_count:
                     break
