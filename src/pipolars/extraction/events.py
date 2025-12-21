@@ -91,6 +91,18 @@ class EventFrameExtractor:
         else:
             return AFTime_class(str(time))
 
+    def _convert_net_datetime(self, net_datetime: Any) -> datetime:
+        """Convert a .NET DateTime to Python datetime."""
+        return datetime(
+            net_datetime.Year,
+            net_datetime.Month,
+            net_datetime.Day,
+            net_datetime.Hour,
+            net_datetime.Minute,
+            net_datetime.Second,
+            net_datetime.Millisecond * 1000,  # Convert ms to us
+        )
+
     def _convert_event_frame(
         self,
         af_event: Any,
@@ -117,13 +129,18 @@ class EventFrameExtractor:
         if af_event.Categories:
             categories = [str(c.Name) for c in af_event.Categories]
 
-        # Calculate duration
+        # Calculate duration and convert timestamps
         duration = None
         end_time = None
+        start_time = None
+
+        if af_event.StartTime:
+            start_time = self._convert_net_datetime(af_event.StartTime.LocalTime)
+
         if af_event.EndTime:
-            end_time = af_event.EndTime.LocalTime
-            if af_event.StartTime:
-                delta = end_time - af_event.StartTime.LocalTime
+            end_time = self._convert_net_datetime(af_event.EndTime.LocalTime)
+            if start_time:
+                delta = end_time - start_time
                 duration = delta.total_seconds()
 
         # Get attribute values if requested
@@ -142,7 +159,7 @@ class EventFrameExtractor:
             id=str(af_event.ID),
             description=str(af_event.Description or ""),
             template_name=template_name,
-            start_time=af_event.StartTime.LocalTime,
+            start_time=start_time,
             end_time=end_time,
             duration=duration,
             is_acknowledged=bool(af_event.IsAcknowledged),
@@ -314,7 +331,7 @@ class EventFrameExtractor:
                 for af_value in af_values:
                     values.append(
                         PIValue(
-                            timestamp=af_value.Timestamp.LocalTime,
+                            timestamp=self._convert_net_datetime(af_value.Timestamp.LocalTime),
                             value=af_value.Value,
                         )
                     )

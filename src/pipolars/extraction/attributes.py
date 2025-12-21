@@ -107,9 +107,22 @@ class AFAttributeExtractor:
         end_time = self._parse_time(end)
         return AFTimeRange(start_time, end_time)
 
+    def _convert_net_datetime(self, net_datetime: Any) -> datetime:
+        """Convert a .NET DateTime to Python datetime."""
+        return datetime(
+            net_datetime.Year,
+            net_datetime.Month,
+            net_datetime.Day,
+            net_datetime.Hour,
+            net_datetime.Minute,
+            net_datetime.Second,
+            net_datetime.Millisecond * 1000,  # Convert ms to us
+        )
+
     def _convert_value(self, af_value: Any) -> PIValue:
         """Convert an AFValue to PIValue."""
-        timestamp = af_value.Timestamp.LocalTime
+        net_timestamp = af_value.Timestamp.LocalTime
+        timestamp = self._convert_net_datetime(net_timestamp)
 
         value = af_value.Value
         if hasattr(value, "Name"):
@@ -276,8 +289,9 @@ class AFAttributeExtractor:
         )
 
         if isinstance(summary_types, list):
-            sdk_summary = AFSummaryTypes.None_
-            for st in summary_types:
+            # Start with first type, then OR the rest
+            sdk_summary = AFSummaryTypes(summary_types[0].value)
+            for st in summary_types[1:]:
                 sdk_summary |= AFSummaryTypes(st.value)
         else:
             sdk_summary = AFSummaryTypes(summary_types.value)
@@ -301,10 +315,18 @@ class AFAttributeExtractor:
             8192: "percent_good",
         }
 
-        for summary in summaries:
-            summary_type_value = int(summary.SummaryType)
+        # PI SDK returns IDictionary<AFSummaryTypes, AFValue>
+        for key in summaries.Keys:
+            summary_type_value = int(key)
             name = summary_name_map.get(summary_type_value, str(summary_type_value))
-            result[name] = summary.Value.Value
+            af_value = summaries[key]
+            value = af_value.Value
+            if hasattr(value, "Value"):
+                value = value.Value
+            try:
+                result[name] = float(value)
+            except (ValueError, TypeError):
+                result[name] = value
 
         return result
 

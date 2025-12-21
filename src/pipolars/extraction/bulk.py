@@ -100,9 +100,22 @@ class BulkExtractor:
         end_time = self._parse_time(end)
         return AFTimeRange(start_time, end_time)
 
+    def _convert_net_datetime(self, net_datetime: Any) -> datetime:
+        """Convert a .NET DateTime to Python datetime."""
+        return datetime(
+            net_datetime.Year,
+            net_datetime.Month,
+            net_datetime.Day,
+            net_datetime.Hour,
+            net_datetime.Minute,
+            net_datetime.Second,
+            net_datetime.Millisecond * 1000,  # Convert ms to us
+        )
+
     def _convert_value(self, af_value: Any) -> PIValue:
         """Convert an AFValue to PIValue."""
-        timestamp = af_value.Timestamp.LocalTime
+        net_timestamp = af_value.Timestamp.LocalTime
+        timestamp = self._convert_net_datetime(net_timestamp)
 
         value = af_value.Value
         if hasattr(value, "Name"):
@@ -386,8 +399,9 @@ class BulkExtractor:
                 )
 
                 if isinstance(summary_types, list):
-                    sdk_summary = AFSummaryTypes.None_
-                    for st in summary_types:
+                    # Start with first type, then OR the rest
+                    sdk_summary = AFSummaryTypes(summary_types[0].value)
+                    for st in summary_types[1:]:
                         sdk_summary |= AFSummaryTypes(st.value)
                 else:
                     sdk_summary = AFSummaryTypes(summary_types.value)
@@ -411,11 +425,18 @@ class BulkExtractor:
                     8192: "percent_good",
                 }
 
-                for summary in summaries_result:
-                    name = summary_name_map.get(
-                        int(summary.SummaryType), str(summary.SummaryType)
-                    )
-                    summary_dict[name] = summary.Value.Value
+                # PI SDK returns IDictionary<AFSummaryTypes, AFValue>
+                for key in summaries_result.Keys:
+                    summary_type_value = int(key)
+                    name = summary_name_map.get(summary_type_value, str(summary_type_value))
+                    af_value = summaries_result[key]
+                    value = af_value.Value
+                    if hasattr(value, "Value"):
+                        value = value.Value
+                    try:
+                        summary_dict[name] = float(value)
+                    except (ValueError, TypeError):
+                        summary_dict[name] = value
 
                 return BulkSummaryResult(
                     tag=tag, summaries=summary_dict, success=True

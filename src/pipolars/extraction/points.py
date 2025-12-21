@@ -120,6 +120,25 @@ class PIPointExtractor:
         end_time = self._parse_time(end)
         return AFTimeRange(start_time, end_time)
 
+    def _convert_net_datetime(self, net_datetime: Any) -> datetime:
+        """Convert a .NET DateTime to Python datetime.
+
+        Args:
+            net_datetime: .NET DateTime object
+
+        Returns:
+            Python datetime object
+        """
+        return datetime(
+            net_datetime.Year,
+            net_datetime.Month,
+            net_datetime.Day,
+            net_datetime.Hour,
+            net_datetime.Minute,
+            net_datetime.Second,
+            net_datetime.Millisecond * 1000,  # Convert ms to us
+        )
+
     def _convert_value(self, af_value: Any) -> PIValue:
         """Convert an AFValue to PIValue.
 
@@ -129,8 +148,9 @@ class PIPointExtractor:
         Returns:
             PIValue object
         """
-        # Get timestamp
-        timestamp = af_value.Timestamp.LocalTime
+        # Get timestamp and convert from .NET DateTime to Python datetime
+        net_timestamp = af_value.Timestamp.LocalTime
+        timestamp = self._convert_net_datetime(net_timestamp)
 
         # Get value - handle digital states and errors
         value = af_value.Value
@@ -156,6 +176,24 @@ class PIPointExtractor:
             value=value,
             quality=quality,
         )
+
+    def _get_attr(self, attrs: Any, key: str, default: Any = None) -> Any:
+        """Safely get a value from a .NET IDictionary.
+
+        Args:
+            attrs: .NET IDictionary object
+            key: Key to look up
+            default: Default value if key not found
+
+        Returns:
+            Value from dictionary or default
+        """
+        try:
+            if attrs.ContainsKey(key):
+                return attrs[key]
+            return default
+        except Exception:
+            return default
 
     def get_point_config(self, tag_name: str) -> PointConfig:
         """Get configuration/metadata for a PI Point.
@@ -193,19 +231,21 @@ class PIPointExtractor:
             "Blob": PointType.BLOB,
         }
 
-        point_type_str = str(attrs.get("pointtype", "Float32"))
+        point_type_str = str(self._get_attr(attrs, "pointtype", "Float32"))
         point_type = point_type_map.get(point_type_str, PointType.FLOAT64)
+
+        typical_val = self._get_attr(attrs, "typicalvalue")
 
         return PointConfig(
             name=tag_name,
-            point_id=int(attrs.get("pointid", 0)),
+            point_id=int(self._get_attr(attrs, "pointid", 0)),
             point_type=point_type,
-            description=str(attrs.get("descriptor", "")),
-            engineering_units=str(attrs.get("engunits", "")),
-            zero=float(attrs.get("zero", 0.0)),
-            span=float(attrs.get("span", 100.0)),
-            display_digits=int(attrs.get("displaydigits", -5)),
-            typical_value=float(attrs.get("typicalvalue")) if attrs.get("typicalvalue") else None,
+            description=str(self._get_attr(attrs, "descriptor", "")),
+            engineering_units=str(self._get_attr(attrs, "engunits", "")),
+            zero=float(self._get_attr(attrs, "zero", 0.0)),
+            span=float(self._get_attr(attrs, "span", 100.0)),
+            display_digits=int(self._get_attr(attrs, "displaydigits", -5)),
+            typical_value=float(typical_val) if typical_val is not None else None,
         )
 
     def snapshot(self, tag_name: str) -> PIValue:
@@ -423,8 +463,9 @@ class PIPointExtractor:
         AFSummaryTypes = self._sdk.get_type("OSIsoft.AF.Data", "AFSummaryTypes")
 
         if isinstance(summary_types, list):
-            sdk_summary = AFSummaryTypes.None_
-            for st in summary_types:
+            # Start with first type, then OR the rest
+            sdk_summary = AFSummaryTypes(summary_types[0].value)
+            for st in summary_types[1:]:
                 sdk_summary |= AFSummaryTypes(st.value)
         else:
             sdk_summary = AFSummaryTypes(summary_types.value)
@@ -443,6 +484,7 @@ class PIPointExtractor:
         )
 
         # Convert to dictionary
+        # PI SDK returns IDictionary<AFSummaryTypes, AFValue>
         result = {}
         summary_name_map = {
             1: "total",
@@ -456,10 +498,19 @@ class PIPointExtractor:
             8192: "percent_good",
         }
 
-        for summary in summaries:
-            summary_type_value = int(summary.SummaryType)
+        # Iterate over dictionary keys
+        for key in summaries.Keys:
+            summary_type_value = int(key)
             name = summary_name_map.get(summary_type_value, str(summary_type_value))
-            result[name] = summary.Value.Value
+            af_value = summaries[key]
+            # Extract the actual value
+            value = af_value.Value
+            if hasattr(value, "Value"):
+                value = value.Value
+            try:
+                result[name] = float(value)
+            except (ValueError, TypeError):
+                result[name] = value
 
         return result
 
@@ -496,8 +547,9 @@ class PIPointExtractor:
         time_interval = AFTimeSpan.Parse(interval)
 
         if isinstance(summary_types, list):
-            sdk_summary = AFSummaryTypes.None_
-            for st in summary_types:
+            # Start with first type, then OR the rest
+            sdk_summary = AFSummaryTypes(summary_types[0].value)
+            for st in summary_types[1:]:
                 sdk_summary |= AFSummaryTypes(st.value)
         else:
             sdk_summary = AFSummaryTypes(summary_types.value)
@@ -511,16 +563,37 @@ class PIPointExtractor:
         )
 
         # Convert to list of dictionaries
-        results = []
-        for summary_dict in summaries.Values:
-            interval_results = {
-                "timestamp": summary_dict.Key.LocalTime,
-            }
-            for summary in summary_dict.Value:
-                summary_type_value = int(summary.SummaryType)
-                name = self._get_summary_name(summary_type_value)
-                interval_results[name] = summary.Value.Value
-            results.append(interval_results)
+        # PI SDK returns IDictionary<AFSummaryTypes, AFValues>
+        # AFValues is a collection of timestamped values
+        # We need to pivot this into a list of {timestamp, summary1, summary2, ...}
+
+        # First, collect all data by timestamp
+        timestamp_data: dict[datetime, dict[str, Any]] = {}
+
+        for summary_type_key in summaries.Keys:
+            summary_type_value = int(summary_type_key)
+            name = self._get_summary_name(summary_type_value)
+            af_values = summaries[summary_type_key]
+
+            # AFValues is iterable
+            for af_value in af_values:
+                net_timestamp = af_value.Timestamp.LocalTime
+                py_timestamp = self._convert_net_datetime(net_timestamp)
+
+                if py_timestamp not in timestamp_data:
+                    timestamp_data[py_timestamp] = {"timestamp": py_timestamp}
+
+                value = af_value.Value
+                if hasattr(value, "Value"):
+                    value = value.Value
+                try:
+                    timestamp_data[py_timestamp][name] = float(value)
+                except (ValueError, TypeError):
+                    timestamp_data[py_timestamp][name] = value
+
+        # Convert to sorted list
+        results = list(timestamp_data.values())
+        results.sort(key=lambda x: x["timestamp"])
 
         return results
 
