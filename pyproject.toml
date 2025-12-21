@@ -51,10 +51,10 @@ docs = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/pipolars/pipolars"
-Documentation = "https://pipolars.github.io/pipolars"
-Repository = "https://github.com/pipolars/pipolars"
-Issues = "https://github.com/pipolars/pipolars/issues"
+Homepage = "https://github.com/aserdargun/pipolars"
+Documentation = "https://pipolars.readthedocs.io"
+Repository = "https://github.com/aserdargun/pipolars"
+Issues = "https://github.com/aserdargun/pipolars/issues"
 
 [build-system]
 requires = ["hatchling", "hatch-vcs"]
