@@ -29,7 +29,7 @@ class EventFrameInfo:
     id: str
     description: str
     template_name: str | None
-    start_time: datetime
+    start_time: datetime | None
     end_time: datetime | None
     duration: float | None  # Duration in seconds
     is_acknowledged: bool
@@ -308,7 +308,7 @@ class EventFrameExtractor:
             raise PIDataError(f"Event Frame not found: {event_id}")
 
         result = {}
-        time_range = self._create_time_range(event.start_time, event.end_time or "*")
+        time_range = self._create_time_range(event.start_time or "*", event.end_time or "*")
 
         for attr in af_event.Attributes:
             attr_name = str(attr.Name)
