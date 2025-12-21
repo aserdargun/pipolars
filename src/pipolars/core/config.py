@@ -73,7 +73,7 @@ class PIServerConfig(BaseSettings):
     password: SecretStr | None = Field(default=None, description="Password for explicit auth")
 
     @model_validator(mode="after")
-    def validate_explicit_auth(self) -> "PIServerConfig":
+    def validate_explicit_auth(self) -> PIServerConfig:
         """Validate that username/password are provided for explicit auth."""
         if self.auth_method == AuthMethod.EXPLICIT:
             if not self.username or not self.password:
@@ -228,7 +228,7 @@ class PIConfig(BaseSettings):
     log_level: str = Field(default="INFO", description="Logging level")
 
     @classmethod
-    def from_file(cls, path: str | Path) -> "PIConfig":
+    def from_file(cls, path: str | Path) -> PIConfig:
         """Load configuration from a TOML or JSON file.
 
         Args:
@@ -242,10 +242,10 @@ class PIConfig(BaseSettings):
         path = Path(path)
 
         if path.suffix == ".toml":
-            with open(path, "rb") as f:
+            with path.open("rb") as f:
                 data = tomllib.load(f)
         elif path.suffix == ".json":
-            with open(path) as f:
+            with path.open() as f:
                 data = json.load(f)
         else:
             raise ValueError(f"Unsupported config file format: {path.suffix}")

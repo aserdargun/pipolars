@@ -7,13 +7,13 @@ multiple PI Points and AF Attributes simultaneously.
 from __future__ import annotations
 
 import logging
+from collections.abc import Callable
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
 from datetime import datetime
-from typing import TYPE_CHECKING, Any, Callable
+from typing import TYPE_CHECKING, Any
 
 from pipolars.connection.sdk import get_sdk_manager
-from pipolars.core.exceptions import PIBulkOperationError, PIDataError
 from pipolars.core.types import (
     AFTime,
     DataQuality,

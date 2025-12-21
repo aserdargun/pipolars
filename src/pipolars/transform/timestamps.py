@@ -7,7 +7,7 @@ timestamps between PI System and Polars formats.
 from __future__ import annotations
 
 from datetime import datetime, timedelta, timezone
-from typing import Any, Literal
+from typing import Any, ClassVar, Literal
 from zoneinfo import ZoneInfo
 
 import polars as pl
@@ -32,7 +32,7 @@ class TimestampHandler:
     """
 
     # PI time expression patterns
-    RELATIVE_PATTERNS = {
+    RELATIVE_PATTERNS: ClassVar[dict[str, str]] = {
         "*": "now",
         "t": "today",
         "y": "yesterday",

@@ -7,9 +7,8 @@ with method chaining.
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from datetime import datetime, timedelta
 from enum import Enum, auto
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING
 
 import polars as pl
 

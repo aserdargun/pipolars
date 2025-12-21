@@ -7,12 +7,11 @@ throughout the library for type safety and better IDE support.
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from datetime import datetime, timedelta
-from enum import Enum, IntEnum, auto
-from typing import Any, Literal, TypeAlias, Union
+from datetime import datetime
+from enum import Enum, IntEnum
+from typing import Any, TypeAlias, Union
 
 import polars as pl
-
 
 # Type aliases for common types
 PITimestamp: TypeAlias = Union[datetime, str, "AFTime"]

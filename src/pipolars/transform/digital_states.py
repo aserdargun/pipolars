@@ -12,7 +12,6 @@ from typing import Any
 import polars as pl
 
 from pipolars.connection.sdk import get_sdk_manager
-from pipolars.core.types import DigitalState
 
 
 class SystemDigitalState(IntEnum):
@@ -70,12 +69,12 @@ class DigitalStateMapper:
             SystemDigitalState.UNDER_RANGE: "Under Range",
         }
 
-    def load_state_set(self, state_set_name: str, server: Any = None) -> dict[int, str]:
+    def load_state_set(self, state_set_name: str, _server: Any = None) -> dict[int, str]:
         """Load a digital state set from the PI server.
 
         Args:
             state_set_name: Name of the digital state set
-            server: Optional PI Server connection
+            _server: Optional PI Server connection (reserved for future use)
 
         Returns:
             Dictionary mapping codes to names
@@ -85,8 +84,6 @@ class DigitalStateMapper:
 
         try:
             # Get state set from PI
-            AFDatabase = self._sdk.af_database_class
-
             # This would normally query the PI server for the state set
             # For now, return a placeholder that would be populated
             # when actually connected to PI

@@ -233,7 +233,6 @@ class EventFrameExtractor:
             tokens.append(AFSearchToken(AFSearchField.Template, "=", template_name))
 
         if start_time and end_time:
-            time_range = self._create_time_range(start_time, end_time)
             tokens.append(AFSearchToken(AFSearchField.Start, ">=", str(start_time)))
             tokens.append(AFSearchToken(AFSearchField.End, "<=", str(end_time)))
 

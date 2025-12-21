@@ -10,8 +10,8 @@ from pipolars.connection.sdk import PISDKManager
 from pipolars.connection.server import PIServerConnection
 
 __all__ = [
-    "PISDKManager",
-    "PIServerConnection",
     "AFDatabaseConnection",
     "PIAuthenticator",
+    "PISDKManager",
+    "PIServerConnection",
 ]

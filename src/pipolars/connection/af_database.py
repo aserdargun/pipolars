@@ -7,14 +7,11 @@ databases, enabling access to AF Elements, Attributes, and Event Frames.
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any
+from typing import Any
 
 from pipolars.connection.sdk import get_sdk_manager
 from pipolars.core.config import AFServerConfig
 from pipolars.core.exceptions import PIConnectionError
-
-if TYPE_CHECKING:
-    pass
 
 logger = logging.getLogger(__name__)
 
@@ -275,14 +272,14 @@ class AFDatabaseConnection:
     def search_elements(
         self,
         query: str,
-        search_root: str = "",
+        _search_root: str = "",
         max_count: int = 1000,
     ) -> list[Any]:
         """Search for AF Elements by name pattern.
 
         Args:
             query: Search pattern (supports wildcards)
-            search_root: Root path for search
+            _search_root: Root path for search (reserved for future use)
             max_count: Maximum results to return
 
         Returns:

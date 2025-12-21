@@ -7,16 +7,13 @@ how PI data is cached and retrieved.
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
+from collections.abc import Callable
 from datetime import datetime, timedelta
-from typing import TYPE_CHECKING, Any, Callable
+from typing import Any
 
 import polars as pl
 
 from pipolars.cache.storage import CacheBackendBase
-from pipolars.core.types import PITimestamp, TimeRange
-
-if TYPE_CHECKING:
-    pass
 
 
 class CacheStrategy(ABC):
@@ -348,7 +345,7 @@ class SmartCacheStrategy(CacheStrategy):
 
         return data
 
-    def _select_ttl(self, key: str) -> timedelta:
+    def _select_ttl(self, _key: str) -> timedelta:
         """Select appropriate TTL based on key patterns."""
         return self._default_ttl
 

@@ -7,8 +7,7 @@ data as Polars DataFrames.
 from __future__ import annotations
 
 import logging
-from datetime import timedelta
-from typing import TYPE_CHECKING, Any, Sequence
+from typing import Any
 
 import polars as pl
 
@@ -17,7 +16,7 @@ from pipolars.cache.storage import CacheBackendBase, get_cache_backend
 from pipolars.cache.strategies import TTLStrategy
 from pipolars.connection.af_database import AFDatabaseConnection
 from pipolars.connection.server import PIServerConnection
-from pipolars.core.config import CacheConfig, PIConfig, PIServerConfig
+from pipolars.core.config import PIConfig, PIServerConfig
 from pipolars.core.types import PITimestamp, SummaryType, TimeRange
 from pipolars.extraction.attributes import AFAttributeExtractor
 from pipolars.extraction.bulk import BulkExtractor
@@ -25,9 +24,6 @@ from pipolars.extraction.elements import AFElementExtractor
 from pipolars.extraction.events import EventFrameExtractor
 from pipolars.extraction.points import PIPointExtractor
 from pipolars.transform.converters import PIToPolarsConverter
-
-if TYPE_CHECKING:
-    pass
 
 logger = logging.getLogger(__name__)
 

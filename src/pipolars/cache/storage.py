@@ -298,33 +298,32 @@ class SQLiteCache(CacheBackendBase):
 
     def get(self, key: str) -> pl.DataFrame | None:
         """Retrieve data from the cache."""
-        with self._lock:
-            with sqlite3.connect(self._db_path) as conn:
-                cursor = conn.execute(
-                    """
+        with self._lock, sqlite3.connect(self._db_path) as conn:
+            cursor = conn.execute(
+                """
                     SELECT data, expires_at FROM cache WHERE key = ?
                     """,
-                    (key,),
-                )
-                row = cursor.fetchone()
+                (key,),
+            )
+            row = cursor.fetchone()
 
-                if row is None:
+            if row is None:
+                self._misses += 1
+                return None
+
+            data, expires_at = row
+
+            # Check TTL
+            if expires_at:
+                expires_dt = datetime.fromisoformat(expires_at)
+                if datetime.now() > expires_dt:
+                    conn.execute("DELETE FROM cache WHERE key = ?", (key,))
+                    conn.commit()
                     self._misses += 1
                     return None
 
-                data, expires_at = row
-
-                # Check TTL
-                if expires_at:
-                    expires_dt = datetime.fromisoformat(expires_at)
-                    if datetime.now() > expires_dt:
-                        conn.execute("DELETE FROM cache WHERE key = ?", (key,))
-                        conn.commit()
-                        self._misses += 1
-                        return None
-
-                self._hits += 1
-                return self._deserialize_df(data)
+            self._hits += 1
+            return self._deserialize_df(data)
 
     def set(
         self,
@@ -390,56 +389,52 @@ class SQLiteCache(CacheBackendBase):
 
     def delete(self, key: str) -> bool:
         """Delete data from the cache."""
-        with self._lock:
-            with sqlite3.connect(self._db_path) as conn:
-                cursor = conn.execute(
-                    "DELETE FROM cache WHERE key = ?", (key,)
-                )
-                conn.commit()
-                return cursor.rowcount > 0
+        with self._lock, sqlite3.connect(self._db_path) as conn:
+            cursor = conn.execute(
+                "DELETE FROM cache WHERE key = ?", (key,)
+            )
+            conn.commit()
+            return cursor.rowcount > 0
 
     def exists(self, key: str) -> bool:
         """Check if a key exists in the cache."""
-        with self._lock:
-            with sqlite3.connect(self._db_path) as conn:
-                cursor = conn.execute(
-                    """
+        with self._lock, sqlite3.connect(self._db_path) as conn:
+            cursor = conn.execute(
+                """
                     SELECT 1 FROM cache
                     WHERE key = ? AND (expires_at IS NULL OR expires_at > ?)
                     """,
-                    (key, datetime.now().isoformat()),
-                )
-                return cursor.fetchone() is not None
+                (key, datetime.now().isoformat()),
+            )
+            return cursor.fetchone() is not None
 
     def clear(self) -> None:
         """Clear all cached data."""
-        with self._lock:
-            with sqlite3.connect(self._db_path) as conn:
-                conn.execute("DELETE FROM cache")
-                conn.commit()
+        with self._lock, sqlite3.connect(self._db_path) as conn:
+            conn.execute("DELETE FROM cache")
+            conn.commit()
 
     def get_stats(self) -> dict[str, Any]:
         """Get cache statistics."""
-        with self._lock:
-            with sqlite3.connect(self._db_path) as conn:
-                cursor = conn.execute(
-                    "SELECT COUNT(*), SUM(size_bytes) FROM cache"
-                )
-                count, total_bytes = cursor.fetchone()
+        with self._lock, sqlite3.connect(self._db_path) as conn:
+            cursor = conn.execute(
+                "SELECT COUNT(*), SUM(size_bytes) FROM cache"
+            )
+            count, total_bytes = cursor.fetchone()
 
-                total = self._hits + self._misses
-                hit_rate = self._hits / total if total > 0 else 0.0
+            total = self._hits + self._misses
+            hit_rate = self._hits / total if total > 0 else 0.0
 
-                return {
-                    "type": "sqlite",
-                    "items": count or 0,
-                    "size_bytes": total_bytes or 0,
-                    "size_mb": (total_bytes or 0) / (1024 * 1024),
-                    "max_size_mb": self._max_size_mb,
-                    "hits": self._hits,
-                    "misses": self._misses,
-                    "hit_rate": hit_rate,
-                }
+            return {
+                "type": "sqlite",
+                "items": count or 0,
+                "size_bytes": total_bytes or 0,
+                "size_mb": (total_bytes or 0) / (1024 * 1024),
+                "max_size_mb": self._max_size_mb,
+                "hits": self._hits,
+                "misses": self._misses,
+                "hit_rate": hit_rate,
+            }
 
 
 class ArrowCache(CacheBackendBase):
@@ -475,14 +470,14 @@ class ArrowCache(CacheBackendBase):
     def _load_metadata(self) -> None:
         """Load cache metadata from disk."""
         if self._meta_path.exists():
-            with open(self._meta_path) as f:
+            with self._meta_path.open() as f:
                 self._metadata = json.load(f)
         else:
             self._metadata = {"entries": {}}
 
     def _save_metadata(self) -> None:
         """Save cache metadata to disk."""
-        with open(self._meta_path, "w") as f:
+        with self._meta_path.open("w") as f:
             json.dump(self._metadata, f)
 
     def _get_file_path(self, key: str) -> Path:

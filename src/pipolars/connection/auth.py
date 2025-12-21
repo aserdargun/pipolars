@@ -9,16 +9,13 @@ from __future__ import annotations
 
 import logging
 from abc import ABC, abstractmethod
-from typing import TYPE_CHECKING, Any
+from typing import Any
 
 from pydantic import SecretStr
 
 from pipolars.connection.sdk import get_sdk_manager
 from pipolars.core.config import AuthMethod
 from pipolars.core.exceptions import PIAuthenticationError
-
-if TYPE_CHECKING:
-    pass
 
 logger = logging.getLogger(__name__)
 

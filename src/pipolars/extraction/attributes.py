@@ -9,7 +9,7 @@ from __future__ import annotations
 import logging
 from dataclasses import dataclass
 from datetime import datetime
-from typing import TYPE_CHECKING, Any, Iterator
+from typing import TYPE_CHECKING, Any
 
 from pipolars.connection.sdk import get_sdk_manager
 from pipolars.core.exceptions import PIDataError

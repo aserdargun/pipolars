@@ -6,12 +6,13 @@ to be built and optimized before execution.
 
 from __future__ import annotations
 
+from collections.abc import Callable
 from dataclasses import dataclass, field
-from typing import TYPE_CHECKING, Any, Callable
+from typing import TYPE_CHECKING, Any
 
 import polars as pl
 
-from pipolars.core.types import PITimestamp, SummaryType
+from pipolars.core.types import PITimestamp
 
 if TYPE_CHECKING:
     from pipolars.api.client import PIClient

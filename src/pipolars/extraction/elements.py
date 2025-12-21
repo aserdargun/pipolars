@@ -11,7 +11,6 @@ from dataclasses import dataclass, field
 from typing import TYPE_CHECKING, Any
 
 from pipolars.connection.sdk import get_sdk_manager
-from pipolars.core.exceptions import PIDataError
 
 if TYPE_CHECKING:
     from pipolars.connection.af_database import AFDatabaseConnection

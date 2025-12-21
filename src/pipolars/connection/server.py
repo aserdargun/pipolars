@@ -7,8 +7,9 @@ handling connection lifecycle, authentication, and server discovery.
 from __future__ import annotations
 
 import logging
+from collections.abc import Generator
 from contextlib import contextmanager
-from typing import Any, Generator, Iterator
+from typing import Any
 
 from pipolars.connection.sdk import get_sdk_manager
 from pipolars.core.config import PIServerConfig

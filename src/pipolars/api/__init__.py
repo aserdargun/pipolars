@@ -9,7 +9,7 @@ from pipolars.api.lazy import LazyPIQuery
 from pipolars.api.query import PIQuery
 
 __all__ = [
+    "LazyPIQuery",
     "PIClient",
     "PIQuery",
-    "LazyPIQuery",
 ]

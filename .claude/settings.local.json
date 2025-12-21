@@ -6,7 +6,11 @@
       "Bash(uv run pytest:*)",
       "Bash(uv run python:*)",
       "Bash(uv sync:*)",
-      "Bash(uv run:*)"
+      "Bash(uv run:*)",
+      "Bash(set UV_LINK_MODE=copy)",
+      "Bash(\".venv\\\\Scripts\\\\ruff.exe\" check src)",
+      "Bash(\".venv\\\\Scripts\\\\python.exe\" -m pytest tests/unit -v)",
+      "Bash(\".venv\\\\Scripts\\\\python.exe\" -m mypy src)"
     ]
   }
 }

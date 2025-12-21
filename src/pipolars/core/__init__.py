@@ -17,15 +17,15 @@ from pipolars.core.types import (
 )
 
 __all__ = [
+    "AFTime",
+    "DataQuality",
     "PIConfig",
-    "PIPolarsError",
     "PIConnectionError",
     "PIDataError",
+    "PIPolarsError",
     "PIQueryError",
-    "AFTime",
     "PIValue",
     "RetrievalMode",
     "SummaryType",
     "TimestampMode",
-    "DataQuality",
 ]

@@ -10,7 +10,7 @@ from __future__ import annotations
 import os
 import sys
 from pathlib import Path
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, ClassVar
 
 from pipolars.core.exceptions import PIAFSDKError, PIConfigurationError
 
@@ -36,7 +36,7 @@ class PISDKManager:
     """
 
     # Default AF SDK installation paths
-    DEFAULT_AF_SDK_PATHS = [
+    DEFAULT_AF_SDK_PATHS: ClassVar[list[str]] = [
         r"C:\Program Files\PIPC\AF\PublicAssemblies\4.0",
         r"C:\Program Files (x86)\PIPC\AF\PublicAssemblies\4.0",
         r"C:\Program Files\PIPC\pisdk",
