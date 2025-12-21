@@ -1,0 +1,1148 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="Changelog" href="../changelog.html"><link rel="prev" title="Exceptions" href="exceptions.html">
+        <link rel="prefetch" href="../_static/logo-light.png" as="image">
+        <link rel="prefetch" href="../_static/logo-dark.png" as="image">
+
+    <!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
+        <title>Cache - PIPolars 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f2f2f2;
+  --color-code-foreground: #1e1e1e;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">PIPolars 0.1.0 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo only-light" src="../_static/logo-light.png" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="../_static/logo-dark.png" alt="Dark Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">PIPolars 0.1.0 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../user_guide/index.html">User Guide</a><input aria-label="Toggle navigation of User Guide" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../user_guide/connecting.html">Connecting to PI Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user_guide/querying.html">Querying Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user_guide/time_expressions.html">Time Expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user_guide/dataframes.html">Working with Polars DataFrames</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user_guide/caching.html">Caching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user_guide/configuration.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user_guide/advanced.html">Advanced Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/connecting.html">Connecting to PI Server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/querying.html">Querying Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/time_expressions.html">Time Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/dataframes.html">Working with Polars DataFrames</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/caching.html">Caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/advanced.html">Advanced Usage</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">API Reference</a><input aria-label="Toggle navigation of API Reference" checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/pipolars.PIClient.html">pipolars.PIClient</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/pipolars.PIQuery.html">pipolars.PIQuery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/pipolars.PIConfig.html">pipolars.PIConfig</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/pipolars.AFTime.html">pipolars.AFTime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/pipolars.PIValue.html">pipolars.PIValue</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/pipolars.RetrievalMode.html">pipolars.RetrievalMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/pipolars.SummaryType.html">pipolars.SummaryType</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/pipolars.TimestampMode.html">pipolars.TimestampMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/pipolars.DataQuality.html">pipolars.DataQuality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/pipolars.PIPolarsError.html">pipolars.PIPolarsError</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/pipolars.PIConnectionError.html">pipolars.PIConnectionError</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/pipolars.PIDataError.html">pipolars.PIDataError</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/pipolars.PIQueryError.html">pipolars.PIQueryError</a></li>
+<li class="toctree-l2"><a class="reference internal" href="client.html">PIClient</a></li>
+<li class="toctree-l2"><a class="reference internal" href="query.html">PIQuery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html">Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Cache</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="client.html">PIClient</a></li>
+<li class="toctree-l1"><a class="reference internal" href="query.html">PIQuery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="types.html">Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Cache</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Additional Information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="https://github.com/pipolars/pipolars/blob/main/docs/api/cache.rst?plain=true" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div><div class="edit-this-page">
+  <a class="muted-link" href="https://github.com/pipolars/pipolars/edit/main/docs/api/cache.rst" rel="edit" title="Edit this page">
+    <svg><use href="#svg-pencil"></use></svg>
+    <span class="visually-hidden">Edit this page</span>
+  </a>
+</div><div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="module-pipolars.cache">
+<span id="cache"></span><h1>Cache<a class="headerlink" href="#module-pipolars.cache" title="Link to this heading">¶</a></h1>
+<p>This module provides caching backends and strategies for PIPolars.</p>
+<section id="module-pipolars.cache.storage">
+<span id="storage-module"></span><h2>Storage Module<a class="headerlink" href="#module-pipolars.cache.storage" title="Link to this heading">¶</a></h2>
+<section id="cache-backends">
+<h3>Cache Backends<a class="headerlink" href="#cache-backends" title="Link to this heading">¶</a></h3>
+<section id="cachebackendbase">
+<h4>CacheBackendBase<a class="headerlink" href="#cachebackendbase" title="Link to this heading">¶</a></h4>
+<dl class="py class">
+<dt class="sig sig-object py" id="pipolars.cache.storage.CacheBackendBase">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pipolars.cache.storage.</span></span><span class="sig-name descname"><span class="pre">CacheBackendBase</span></span><a class="reference internal" href="../_modules/pipolars/cache/storage.html#CacheBackendBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipolars.cache.storage.CacheBackendBase" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/abc.html#abc.ABC" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></a></p>
+<p>Abstract base class for cache backends.</p>
+<p>Cache backends are responsible for storing and retrieving
+Polars DataFrames with associated metadata.</p>
+<p>Abstract base class for cache backends.</p>
+<p>All cache backends implement these methods:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">get(key)</span></code> - Retrieve cached data</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">set(key,</span> <span class="pre">data,</span> <span class="pre">ttl)</span></code> - Store data in cache</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">delete(key)</span></code> - Delete cached data</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">exists(key)</span></code> - Check if key exists</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">clear()</span></code> - Clear all cached data</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">get_stats()</span></code> - Get cache statistics</p></li>
+</ul>
+<dl class="py method">
+<dt class="sig sig-object py" id="pipolars.cache.storage.CacheBackendBase.get">
+<span class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pipolars/cache/storage.html#CacheBackendBase.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipolars.cache.storage.CacheBackendBase.get" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieve data from the cache.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Cache key</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Cached DataFrame or None if not found</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>DataFrame</em> | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pipolars.cache.storage.CacheBackendBase.set">
+<span class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ttl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pipolars/cache/storage.html#CacheBackendBase.set"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipolars.cache.storage.CacheBackendBase.set" title="Link to this definition">¶</a></dt>
+<dd><p>Store data in the cache.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Cache key</p></li>
+<li><p><strong>data</strong> (<em>DataFrame</em>) – DataFrame to cache</p></li>
+<li><p><strong>ttl</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta" title="(in Python v3.14)"><em>timedelta</em></a><em> | </em><em>None</em>) – Optional time-to-live</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pipolars.cache.storage.CacheBackendBase.delete">
+<span class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pipolars/cache/storage.html#CacheBackendBase.delete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipolars.cache.storage.CacheBackendBase.delete" title="Link to this definition">¶</a></dt>
+<dd><p>Delete data from the cache.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Cache key</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if deleted, False if not found</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pipolars.cache.storage.CacheBackendBase.exists">
+<span class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">exists</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pipolars/cache/storage.html#CacheBackendBase.exists"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipolars.cache.storage.CacheBackendBase.exists" title="Link to this definition">¶</a></dt>
+<dd><p>Check if a key exists in the cache.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Cache key</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if exists</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pipolars.cache.storage.CacheBackendBase.clear">
+<span class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pipolars/cache/storage.html#CacheBackendBase.clear"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipolars.cache.storage.CacheBackendBase.clear" title="Link to this definition">¶</a></dt>
+<dd><p>Clear all cached data.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pipolars.cache.storage.CacheBackendBase.get_stats">
+<span class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_stats</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pipolars/cache/storage.html#CacheBackendBase.get_stats"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipolars.cache.storage.CacheBackendBase.get_stats" title="Link to this definition">¶</a></dt>
+<dd><p>Get cache statistics.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dictionary with cache stats</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)">dict</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pipolars.cache.storage.CacheBackendBase.generate_key">
+<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">generate_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tag</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'recorded'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pipolars/cache/storage.html#CacheBackendBase.generate_key"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipolars.cache.storage.CacheBackendBase.generate_key" title="Link to this definition">¶</a></dt>
+<dd><p>Generate a cache key from query parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tag</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Tag name</p></li>
+<li><p><strong>start</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.14)"><em>datetime</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Start time</p></li>
+<li><p><strong>end</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.14)"><em>datetime</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – End time</p></li>
+<li><p><strong>query_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Type of query</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>) – Additional parameters</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Cache key string</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="memorycache">
+<h4>MemoryCache<a class="headerlink" href="#memorycache" title="Link to this heading">¶</a></h4>
+<dl class="py class">
+<dt class="sig sig-object py" id="pipolars.cache.storage.MemoryCache">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pipolars.cache.storage.</span></span><span class="sig-name descname"><span class="pre">MemoryCache</span></span><a class="reference internal" href="../_modules/pipolars/cache/storage.html#MemoryCache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipolars.cache.storage.MemoryCache" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pipolars.cache.storage.CacheBackendBase" title="pipolars.cache.storage.CacheBackendBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">CacheBackendBase</span></code></a></p>
+<p>In-memory cache backend using an LRU cache.</p>
+<p>This cache is fast but data is lost when the process ends.
+Uses an LRU (Least Recently Used) eviction policy.</p>
+<p>In-memory LRU cache backend.</p>
+<p>Features:</p>
+<ul class="simple">
+<li><p>Fast access</p></li>
+<li><p>Thread-safe</p></li>
+<li><p>LRU eviction</p></li>
+<li><p>Automatic TTL expiration</p></li>
+<li><p>Data lost on process exit</p></li>
+</ul>
+<dl class="py method">
+<dt class="sig sig-object py" id="pipolars.cache.storage.MemoryCache.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_items</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pipolars/cache/storage.html#MemoryCache.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipolars.cache.storage.MemoryCache.__init__" title="Link to this definition">¶</a></dt>
+<dd><p>Initialize the memory cache.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>max_items</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Maximum number of items to cache</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pipolars.cache.storage.MemoryCache.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pipolars/cache/storage.html#MemoryCache.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipolars.cache.storage.MemoryCache.get" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieve data from the cache.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pipolars.cache.storage.MemoryCache.set">
+<span class="sig-name descname"><span class="pre">set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ttl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pipolars/cache/storage.html#MemoryCache.set"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipolars.cache.storage.MemoryCache.set" title="Link to this definition">¶</a></dt>
+<dd><p>Store data in the cache.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pipolars.cache.storage.MemoryCache.delete">
+<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pipolars/cache/storage.html#MemoryCache.delete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipolars.cache.storage.MemoryCache.delete" title="Link to this definition">¶</a></dt>
+<dd><p>Delete data from the cache.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pipolars.cache.storage.MemoryCache.exists">
+<span class="sig-name descname"><span class="pre">exists</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pipolars/cache/storage.html#MemoryCache.exists"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipolars.cache.storage.MemoryCache.exists" title="Link to this definition">¶</a></dt>
+<dd><p>Check if a key exists in the cache.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pipolars.cache.storage.MemoryCache.clear">
+<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pipolars/cache/storage.html#MemoryCache.clear"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipolars.cache.storage.MemoryCache.clear" title="Link to this definition">¶</a></dt>
+<dd><p>Clear all cached data.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pipolars.cache.storage.MemoryCache.get_stats">
+<span class="sig-name descname"><span class="pre">get_stats</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pipolars/cache/storage.html#MemoryCache.get_stats"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipolars.cache.storage.MemoryCache.get_stats" title="Link to this definition">¶</a></dt>
+<dd><p>Get cache statistics.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p>Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pipolars.cache.storage</span><span class="w"> </span><span class="kn">import</span> <span class="n">MemoryCache</span>
+
+<span class="n">cache</span> <span class="o">=</span> <span class="n">MemoryCache</span><span class="p">(</span><span class="n">max_items</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+
+<span class="c1"># Store data</span>
+<span class="n">cache</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;key&quot;</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">ttl</span><span class="o">=</span><span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+
+<span class="c1"># Retrieve data</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;key&quot;</span><span class="p">)</span>
+
+<span class="c1"># Check stats</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">cache</span><span class="o">.</span><span class="n">get_stats</span><span class="p">())</span>
+</pre></div>
+</div>
+</section>
+<section id="sqlitecache">
+<h4>SQLiteCache<a class="headerlink" href="#sqlitecache" title="Link to this heading">¶</a></h4>
+<dl class="py class">
+<dt class="sig sig-object py" id="pipolars.cache.storage.SQLiteCache">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pipolars.cache.storage.</span></span><span class="sig-name descname"><span class="pre">SQLiteCache</span></span><a class="reference internal" href="../_modules/pipolars/cache/storage.html#SQLiteCache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipolars.cache.storage.SQLiteCache" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pipolars.cache.storage.CacheBackendBase" title="pipolars.cache.storage.CacheBackendBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">CacheBackendBase</span></code></a></p>
+<p>SQLite-based cache backend.</p>
+<p>Provides persistent caching using SQLite database with
+DataFrame serialization via Apache Arrow IPC format.</p>
+<p>SQLite-based persistent cache backend.</p>
+<p>Features:</p>
+<ul class="simple">
+<li><p>Persistent storage</p></li>
+<li><p>Automatic size management</p></li>
+<li><p>TTL-based expiration</p></li>
+<li><p>Compressed storage (Arrow IPC format)</p></li>
+<li><p>Thread-safe</p></li>
+</ul>
+<dl class="py method">
+<dt class="sig sig-object py" id="pipolars.cache.storage.SQLiteCache.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_size_mb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1024</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pipolars/cache/storage.html#SQLiteCache.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipolars.cache.storage.SQLiteCache.__init__" title="Link to this definition">¶</a></dt>
+<dd><p>Initialize the SQLite cache.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><em>Path</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Path to the cache directory</p></li>
+<li><p><strong>max_size_mb</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Maximum cache size in MB</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pipolars.cache.storage.SQLiteCache.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pipolars/cache/storage.html#SQLiteCache.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipolars.cache.storage.SQLiteCache.get" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieve data from the cache.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pipolars.cache.storage.SQLiteCache.set">
+<span class="sig-name descname"><span class="pre">set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ttl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pipolars/cache/storage.html#SQLiteCache.set"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipolars.cache.storage.SQLiteCache.set" title="Link to this definition">¶</a></dt>
+<dd><p>Store data in the cache.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pipolars.cache.storage.SQLiteCache.delete">
+<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pipolars/cache/storage.html#SQLiteCache.delete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipolars.cache.storage.SQLiteCache.delete" title="Link to this definition">¶</a></dt>
+<dd><p>Delete data from the cache.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pipolars.cache.storage.SQLiteCache.exists">
+<span class="sig-name descname"><span class="pre">exists</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pipolars/cache/storage.html#SQLiteCache.exists"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipolars.cache.storage.SQLiteCache.exists" title="Link to this definition">¶</a></dt>
+<dd><p>Check if a key exists in the cache.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pipolars.cache.storage.SQLiteCache.clear">
+<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pipolars/cache/storage.html#SQLiteCache.clear"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipolars.cache.storage.SQLiteCache.clear" title="Link to this definition">¶</a></dt>
+<dd><p>Clear all cached data.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pipolars.cache.storage.SQLiteCache.get_stats">
+<span class="sig-name descname"><span class="pre">get_stats</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pipolars/cache/storage.html#SQLiteCache.get_stats"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipolars.cache.storage.SQLiteCache.get_stats" title="Link to this definition">¶</a></dt>
+<dd><p>Get cache statistics.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p>Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pipolars.cache.storage</span><span class="w"> </span><span class="kn">import</span> <span class="n">SQLiteCache</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="n">cache</span> <span class="o">=</span> <span class="n">SQLiteCache</span><span class="p">(</span>
+    <span class="n">path</span><span class="o">=</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;~/.pipolars/cache&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(),</span>
+    <span class="n">max_size_mb</span><span class="o">=</span><span class="mi">1024</span>
+<span class="p">)</span>
+
+<span class="c1"># Store data</span>
+<span class="n">cache</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;key&quot;</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">ttl</span><span class="o">=</span><span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="mi">24</span><span class="p">))</span>
+
+<span class="c1"># Retrieve data</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;key&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="arrowcache">
+<h4>ArrowCache<a class="headerlink" href="#arrowcache" title="Link to this heading">¶</a></h4>
+<dl class="py class">
+<dt class="sig sig-object py" id="pipolars.cache.storage.ArrowCache">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pipolars.cache.storage.</span></span><span class="sig-name descname"><span class="pre">ArrowCache</span></span><a class="reference internal" href="../_modules/pipolars/cache/storage.html#ArrowCache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipolars.cache.storage.ArrowCache" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pipolars.cache.storage.CacheBackendBase" title="pipolars.cache.storage.CacheBackendBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">CacheBackendBase</span></code></a></p>
+<p>Arrow IPC file-based cache backend.</p>
+<p>Stores each cached DataFrame as a separate Arrow IPC file
+for optimal I/O performance with Polars.</p>
+<p>Arrow IPC file-based cache backend.</p>
+<p>Features:</p>
+<ul class="simple">
+<li><p>Native Polars format</p></li>
+<li><p>Zero-copy reads</p></li>
+<li><p>Fast serialization</p></li>
+<li><p>Optimal for large DataFrames</p></li>
+</ul>
+<dl class="py method">
+<dt class="sig sig-object py" id="pipolars.cache.storage.ArrowCache.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_size_mb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1024</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pipolars/cache/storage.html#ArrowCache.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipolars.cache.storage.ArrowCache.__init__" title="Link to this definition">¶</a></dt>
+<dd><p>Initialize the Arrow cache.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><em>Path</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Path to the cache directory</p></li>
+<li><p><strong>max_size_mb</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Maximum cache size in MB</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pipolars.cache.storage.ArrowCache.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pipolars/cache/storage.html#ArrowCache.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipolars.cache.storage.ArrowCache.get" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieve data from the cache.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pipolars.cache.storage.ArrowCache.set">
+<span class="sig-name descname"><span class="pre">set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ttl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pipolars/cache/storage.html#ArrowCache.set"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipolars.cache.storage.ArrowCache.set" title="Link to this definition">¶</a></dt>
+<dd><p>Store data in the cache.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pipolars.cache.storage.ArrowCache.delete">
+<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pipolars/cache/storage.html#ArrowCache.delete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipolars.cache.storage.ArrowCache.delete" title="Link to this definition">¶</a></dt>
+<dd><p>Delete data from the cache.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pipolars.cache.storage.ArrowCache.exists">
+<span class="sig-name descname"><span class="pre">exists</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pipolars/cache/storage.html#ArrowCache.exists"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipolars.cache.storage.ArrowCache.exists" title="Link to this definition">¶</a></dt>
+<dd><p>Check if a key exists in the cache.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pipolars.cache.storage.ArrowCache.clear">
+<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pipolars/cache/storage.html#ArrowCache.clear"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipolars.cache.storage.ArrowCache.clear" title="Link to this definition">¶</a></dt>
+<dd><p>Clear all cached data.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pipolars.cache.storage.ArrowCache.get_stats">
+<span class="sig-name descname"><span class="pre">get_stats</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pipolars/cache/storage.html#ArrowCache.get_stats"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipolars.cache.storage.ArrowCache.get_stats" title="Link to this definition">¶</a></dt>
+<dd><p>Get cache statistics.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p>Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pipolars.cache.storage</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArrowCache</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="n">cache</span> <span class="o">=</span> <span class="n">ArrowCache</span><span class="p">(</span>
+    <span class="n">path</span><span class="o">=</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;/data/pipolars_cache&quot;</span><span class="p">),</span>
+    <span class="n">max_size_mb</span><span class="o">=</span><span class="mi">4096</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="factory-function">
+<h3>Factory Function<a class="headerlink" href="#factory-function" title="Link to this heading">¶</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="pipolars.cache.storage.get_cache_backend">
+<span class="sig-prename descclassname"><span class="pre">pipolars.cache.storage.</span></span><span class="sig-name descname"><span class="pre">get_cache_backend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pipolars/cache/storage.html#get_cache_backend"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipolars.cache.storage.get_cache_backend" title="Link to this definition">¶</a></dt>
+<dd><p>Factory function to create a cache backend from configuration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>config</strong> (<a class="reference internal" href="config.html#pipolars.core.config.CacheConfig" title="pipolars.core.config.CacheConfig"><em>CacheConfig</em></a>) – Cache configuration</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Cache backend instance or None if caching is disabled</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#pipolars.cache.storage.CacheBackendBase" title="pipolars.cache.storage.CacheBackendBase"><em>CacheBackendBase</em></a> | None</p>
+</dd>
+</dl>
+<p>Factory function to create a cache backend from configuration.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>config: CacheConfig instance</p>
+</dd>
+<dt>Returns:</dt><dd><p>Cache backend instance or None if caching is disabled</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pipolars.cache.storage</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_cache_backend</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pipolars.core.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">CacheConfig</span><span class="p">,</span> <span class="n">CacheBackend</span>
+
+<span class="n">config</span> <span class="o">=</span> <span class="n">CacheConfig</span><span class="p">(</span>
+    <span class="n">backend</span><span class="o">=</span><span class="n">CacheBackend</span><span class="o">.</span><span class="n">SQLITE</span><span class="p">,</span>
+    <span class="n">max_size_mb</span><span class="o">=</span><span class="mi">1024</span>
+<span class="p">)</span>
+
+<span class="n">cache</span> <span class="o">=</span> <span class="n">get_cache_backend</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="module-pipolars.cache.strategies">
+<span id="strategies-module"></span><h2>Strategies Module<a class="headerlink" href="#module-pipolars.cache.strategies" title="Link to this heading">¶</a></h2>
+<section id="ttlstrategy">
+<h3>TTLStrategy<a class="headerlink" href="#ttlstrategy" title="Link to this heading">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="pipolars.cache.strategies.TTLStrategy">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pipolars.cache.strategies.</span></span><span class="sig-name descname"><span class="pre">TTLStrategy</span></span><a class="reference internal" href="../_modules/pipolars/cache/strategies.html#TTLStrategy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipolars.cache.strategies.TTLStrategy" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">CacheStrategy</span></code></p>
+<p>Time-to-live caching strategy.</p>
+<p>Cached data expires after a specified duration. Once expired,
+data is re-fetched from the source.</p>
+<p>Time-to-live caching strategy.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pipolars.cache.strategies.TTLStrategy.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backend</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ttl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">datetime.timedelta(days=1)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pipolars/cache/strategies.html#TTLStrategy.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipolars.cache.strategies.TTLStrategy.__init__" title="Link to this definition">¶</a></dt>
+<dd><p>Initialize the TTL strategy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>backend</strong> (<a class="reference internal" href="#pipolars.cache.storage.CacheBackendBase" title="pipolars.cache.storage.CacheBackendBase"><em>CacheBackendBase</em></a>) – Cache backend</p></li>
+<li><p><strong>ttl</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta" title="(in Python v3.14)"><em>timedelta</em></a>) – Time-to-live for cached data</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pipolars.cache.strategies.TTLStrategy.ttl">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">ttl</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta" title="(in Python v3.14)"><span class="pre">timedelta</span></a></span><a class="headerlink" href="#pipolars.cache.strategies.TTLStrategy.ttl" title="Link to this definition">¶</a></dt>
+<dd><p>Get the TTL duration.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pipolars.cache.strategies.TTLStrategy.get_or_fetch">
+<span class="sig-name descname"><span class="pre">get_or_fetch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fetch_func</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pipolars/cache/strategies.html#TTLStrategy.get_or_fetch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipolars.cache.strategies.TTLStrategy.get_or_fetch" title="Link to this definition">¶</a></dt>
+<dd><p>Get data from cache or fetch with TTL.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pipolars.cache.strategies.TTLStrategy.set_with_ttl">
+<span class="sig-name descname"><span class="pre">set_with_ttl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ttl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pipolars/cache/strategies.html#TTLStrategy.set_with_ttl"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipolars.cache.strategies.TTLStrategy.set_with_ttl" title="Link to this definition">¶</a></dt>
+<dd><p>Set data with custom TTL.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Cache key</p></li>
+<li><p><strong>data</strong> (<em>DataFrame</em>) – Data to cache</p></li>
+<li><p><strong>ttl</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta" title="(in Python v3.14)"><em>timedelta</em></a><em> | </em><em>None</em>) – Custom TTL (uses default if None)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+<section id="cache-key-generation">
+<h2>Cache Key Generation<a class="headerlink" href="#cache-key-generation" title="Link to this heading">¶</a></h2>
+<p>Cache keys are generated from query parameters using SHA-256 hashing:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pipolars.cache.storage</span><span class="w"> </span><span class="kn">import</span> <span class="n">CacheBackendBase</span>
+
+<span class="n">key</span> <span class="o">=</span> <span class="n">CacheBackendBase</span><span class="o">.</span><span class="n">generate_key</span><span class="p">(</span>
+    <span class="n">tag</span><span class="o">=</span><span class="s2">&quot;SINUSOID&quot;</span><span class="p">,</span>
+    <span class="n">start</span><span class="o">=</span><span class="s2">&quot;*-1d&quot;</span><span class="p">,</span>
+    <span class="n">end</span><span class="o">=</span><span class="s2">&quot;*&quot;</span><span class="p">,</span>
+    <span class="n">query_type</span><span class="o">=</span><span class="s2">&quot;recorded&quot;</span><span class="p">,</span>
+    <span class="n">interval</span><span class="o">=</span><span class="s2">&quot;1h&quot;</span>  <span class="c1"># Optional additional parameters</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>  <span class="c1"># e.g., &quot;a7b3c9d1e5f2a8b4...&quot;</span>
+</pre></div>
+</div>
+<p>The key includes:</p>
+<ul class="simple">
+<li><p>Tag name</p></li>
+<li><p>Start time (string representation)</p></li>
+<li><p>End time (string representation)</p></li>
+<li><p>Query type</p></li>
+<li><p>Additional parameters (JSON-serialized)</p></li>
+</ul>
+</section>
+<section id="cache-statistics">
+<h2>Cache Statistics<a class="headerlink" href="#cache-statistics" title="Link to this heading">¶</a></h2>
+<p>All backends provide statistics via <code class="docutils literal notranslate"><span class="pre">get_stats()</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">stats</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="n">get_stats</span><span class="p">()</span>
+
+<span class="c1"># Memory cache stats</span>
+<span class="p">{</span>
+    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;memory&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;items&quot;</span><span class="p">:</span> <span class="mi">42</span><span class="p">,</span>
+    <span class="s2">&quot;max_items&quot;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+    <span class="s2">&quot;hits&quot;</span><span class="p">:</span> <span class="mi">156</span><span class="p">,</span>
+    <span class="s2">&quot;misses&quot;</span><span class="p">:</span> <span class="mi">42</span><span class="p">,</span>
+    <span class="s2">&quot;hit_rate&quot;</span><span class="p">:</span> <span class="mf">0.788</span>
+<span class="p">}</span>
+
+<span class="c1"># SQLite cache stats</span>
+<span class="p">{</span>
+    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;sqlite&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;items&quot;</span><span class="p">:</span> <span class="mi">42</span><span class="p">,</span>
+    <span class="s2">&quot;size_bytes&quot;</span><span class="p">:</span> <span class="mi">131457024</span><span class="p">,</span>
+    <span class="s2">&quot;size_mb&quot;</span><span class="p">:</span> <span class="mf">125.5</span><span class="p">,</span>
+    <span class="s2">&quot;max_size_mb&quot;</span><span class="p">:</span> <span class="mi">1024</span><span class="p">,</span>
+    <span class="s2">&quot;hits&quot;</span><span class="p">:</span> <span class="mi">156</span><span class="p">,</span>
+    <span class="s2">&quot;misses&quot;</span><span class="p">:</span> <span class="mi">42</span><span class="p">,</span>
+    <span class="s2">&quot;hit_rate&quot;</span><span class="p">:</span> <span class="mf">0.788</span>
+<span class="p">}</span>
+
+<span class="c1"># Arrow cache stats</span>
+<span class="p">{</span>
+    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;arrow&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;items&quot;</span><span class="p">:</span> <span class="mi">42</span><span class="p">,</span>
+    <span class="s2">&quot;size_bytes&quot;</span><span class="p">:</span> <span class="mi">131457024</span><span class="p">,</span>
+    <span class="s2">&quot;size_mb&quot;</span><span class="p">:</span> <span class="mf">125.5</span><span class="p">,</span>
+    <span class="s2">&quot;max_size_mb&quot;</span><span class="p">:</span> <span class="mi">4096</span><span class="p">,</span>
+    <span class="s2">&quot;hits&quot;</span><span class="p">:</span> <span class="mi">156</span><span class="p">,</span>
+    <span class="s2">&quot;misses&quot;</span><span class="p">:</span> <span class="mi">42</span><span class="p">,</span>
+    <span class="s2">&quot;hit_rate&quot;</span><span class="p">:</span> <span class="mf">0.788</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="integration-with-piclient">
+<h2>Integration with PIClient<a class="headerlink" href="#integration-with-piclient" title="Link to this heading">¶</a></h2>
+<p>Caching is configured via <code class="docutils literal notranslate"><span class="pre">PIConfig</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pipolars</span><span class="w"> </span><span class="kn">import</span> <span class="n">PIClient</span><span class="p">,</span> <span class="n">PIConfig</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pipolars.core.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">CacheConfig</span><span class="p">,</span> <span class="n">CacheBackend</span><span class="p">,</span> <span class="n">PIServerConfig</span>
+
+<span class="n">config</span> <span class="o">=</span> <span class="n">PIConfig</span><span class="p">(</span>
+    <span class="n">server</span><span class="o">=</span><span class="n">PIServerConfig</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s2">&quot;my-pi-server&quot;</span><span class="p">),</span>
+    <span class="n">cache</span><span class="o">=</span><span class="n">CacheConfig</span><span class="p">(</span>
+        <span class="n">backend</span><span class="o">=</span><span class="n">CacheBackend</span><span class="o">.</span><span class="n">SQLITE</span><span class="p">,</span>
+        <span class="n">ttl_hours</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span>
+    <span class="p">),</span>
+<span class="p">)</span>
+
+<span class="k">with</span> <span class="n">PIClient</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">)</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
+    <span class="c1"># First query - cache miss</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">recorded_values</span><span class="p">(</span><span class="s2">&quot;SINUSOID&quot;</span><span class="p">,</span> <span class="s2">&quot;*-1h&quot;</span><span class="p">,</span> <span class="s2">&quot;*&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Second query - cache hit</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">recorded_values</span><span class="p">(</span><span class="s2">&quot;SINUSOID&quot;</span><span class="p">,</span> <span class="s2">&quot;*-1h&quot;</span><span class="p">,</span> <span class="s2">&quot;*&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Check stats</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">client</span><span class="o">.</span><span class="n">cache_stats</span><span class="p">())</span>
+
+    <span class="c1"># Clear cache</span>
+    <span class="n">client</span><span class="o">.</span><span class="n">clear_cache</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="custom-cache-backend">
+<h2>Custom Cache Backend<a class="headerlink" href="#custom-cache-backend" title="Link to this heading">¶</a></h2>
+<p>Implement custom backends by extending <code class="docutils literal notranslate"><span class="pre">CacheBackendBase</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pipolars.cache.storage</span><span class="w"> </span><span class="kn">import</span> <span class="n">CacheBackendBase</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">polars</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pl</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">timedelta</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">RedisCache</span><span class="p">(</span><span class="n">CacheBackendBase</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">redis_url</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">redis</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">redis</span> <span class="o">=</span> <span class="n">redis</span><span class="o">.</span><span class="n">from_url</span><span class="p">(</span><span class="n">redis_url</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_hits</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_misses</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pl</span><span class="o">.</span><span class="n">DataFrame</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">redis</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">data</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_hits</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">return</span> <span class="n">pl</span><span class="o">.</span><span class="n">read_ipc</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_misses</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">set</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">data</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+        <span class="n">ttl</span><span class="p">:</span> <span class="n">timedelta</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">buffer</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">write_ipc</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+        <span class="n">ex</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">ttl</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">())</span> <span class="k">if</span> <span class="n">ttl</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">redis</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">buffer</span><span class="p">,</span> <span class="n">ex</span><span class="o">=</span><span class="n">ex</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">redis</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">exists</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">redis</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">redis</span><span class="o">.</span><span class="n">flushdb</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_stats</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="n">info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">redis</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+        <span class="n">total</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hits</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_misses</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;redis&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;keys&quot;</span><span class="p">:</span> <span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;db0&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;keys&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+            <span class="s2">&quot;hits&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hits</span><span class="p">,</span>
+            <span class="s2">&quot;misses&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_misses</span><span class="p">,</span>
+            <span class="s2">&quot;hit_rate&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hits</span> <span class="o">/</span> <span class="n">total</span> <span class="k">if</span> <span class="n">total</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="../user_guide/caching.html"><span class="doc">Caching</span></a> - Caching guide</p></li>
+<li><p><a class="reference internal" href="config.html"><span class="doc">Configuration</span></a> - CacheConfig options</p></li>
+</ul>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="../changelog.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Changelog</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="exceptions.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Exceptions</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2025, PIPolars Contributors
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            <div class="icons">
+              <a class="muted-link " href="https://github.com/pipolars/pipolars" aria-label="GitHub">
+                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
+                </svg>
+            </a>
+              
+            </div>
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Cache</a><ul>
+<li><a class="reference internal" href="#module-pipolars.cache.storage">Storage Module</a><ul>
+<li><a class="reference internal" href="#cache-backends">Cache Backends</a><ul>
+<li><a class="reference internal" href="#cachebackendbase">CacheBackendBase</a><ul>
+<li><a class="reference internal" href="#pipolars.cache.storage.CacheBackendBase"><code class="docutils literal notranslate"><span class="pre">CacheBackendBase</span></code></a><ul>
+<li><a class="reference internal" href="#pipolars.cache.storage.CacheBackendBase.get"><code class="docutils literal notranslate"><span class="pre">CacheBackendBase.get()</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.cache.storage.CacheBackendBase.set"><code class="docutils literal notranslate"><span class="pre">CacheBackendBase.set()</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.cache.storage.CacheBackendBase.delete"><code class="docutils literal notranslate"><span class="pre">CacheBackendBase.delete()</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.cache.storage.CacheBackendBase.exists"><code class="docutils literal notranslate"><span class="pre">CacheBackendBase.exists()</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.cache.storage.CacheBackendBase.clear"><code class="docutils literal notranslate"><span class="pre">CacheBackendBase.clear()</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.cache.storage.CacheBackendBase.get_stats"><code class="docutils literal notranslate"><span class="pre">CacheBackendBase.get_stats()</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.cache.storage.CacheBackendBase.generate_key"><code class="docutils literal notranslate"><span class="pre">CacheBackendBase.generate_key()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#memorycache">MemoryCache</a><ul>
+<li><a class="reference internal" href="#pipolars.cache.storage.MemoryCache"><code class="docutils literal notranslate"><span class="pre">MemoryCache</span></code></a><ul>
+<li><a class="reference internal" href="#pipolars.cache.storage.MemoryCache.__init__"><code class="docutils literal notranslate"><span class="pre">MemoryCache.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.cache.storage.MemoryCache.get"><code class="docutils literal notranslate"><span class="pre">MemoryCache.get()</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.cache.storage.MemoryCache.set"><code class="docutils literal notranslate"><span class="pre">MemoryCache.set()</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.cache.storage.MemoryCache.delete"><code class="docutils literal notranslate"><span class="pre">MemoryCache.delete()</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.cache.storage.MemoryCache.exists"><code class="docutils literal notranslate"><span class="pre">MemoryCache.exists()</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.cache.storage.MemoryCache.clear"><code class="docutils literal notranslate"><span class="pre">MemoryCache.clear()</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.cache.storage.MemoryCache.get_stats"><code class="docutils literal notranslate"><span class="pre">MemoryCache.get_stats()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#sqlitecache">SQLiteCache</a><ul>
+<li><a class="reference internal" href="#pipolars.cache.storage.SQLiteCache"><code class="docutils literal notranslate"><span class="pre">SQLiteCache</span></code></a><ul>
+<li><a class="reference internal" href="#pipolars.cache.storage.SQLiteCache.__init__"><code class="docutils literal notranslate"><span class="pre">SQLiteCache.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.cache.storage.SQLiteCache.get"><code class="docutils literal notranslate"><span class="pre">SQLiteCache.get()</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.cache.storage.SQLiteCache.set"><code class="docutils literal notranslate"><span class="pre">SQLiteCache.set()</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.cache.storage.SQLiteCache.delete"><code class="docutils literal notranslate"><span class="pre">SQLiteCache.delete()</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.cache.storage.SQLiteCache.exists"><code class="docutils literal notranslate"><span class="pre">SQLiteCache.exists()</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.cache.storage.SQLiteCache.clear"><code class="docutils literal notranslate"><span class="pre">SQLiteCache.clear()</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.cache.storage.SQLiteCache.get_stats"><code class="docutils literal notranslate"><span class="pre">SQLiteCache.get_stats()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#arrowcache">ArrowCache</a><ul>
+<li><a class="reference internal" href="#pipolars.cache.storage.ArrowCache"><code class="docutils literal notranslate"><span class="pre">ArrowCache</span></code></a><ul>
+<li><a class="reference internal" href="#pipolars.cache.storage.ArrowCache.__init__"><code class="docutils literal notranslate"><span class="pre">ArrowCache.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.cache.storage.ArrowCache.get"><code class="docutils literal notranslate"><span class="pre">ArrowCache.get()</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.cache.storage.ArrowCache.set"><code class="docutils literal notranslate"><span class="pre">ArrowCache.set()</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.cache.storage.ArrowCache.delete"><code class="docutils literal notranslate"><span class="pre">ArrowCache.delete()</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.cache.storage.ArrowCache.exists"><code class="docutils literal notranslate"><span class="pre">ArrowCache.exists()</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.cache.storage.ArrowCache.clear"><code class="docutils literal notranslate"><span class="pre">ArrowCache.clear()</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.cache.storage.ArrowCache.get_stats"><code class="docutils literal notranslate"><span class="pre">ArrowCache.get_stats()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#factory-function">Factory Function</a><ul>
+<li><a class="reference internal" href="#pipolars.cache.storage.get_cache_backend"><code class="docutils literal notranslate"><span class="pre">get_cache_backend()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-pipolars.cache.strategies">Strategies Module</a><ul>
+<li><a class="reference internal" href="#ttlstrategy">TTLStrategy</a><ul>
+<li><a class="reference internal" href="#pipolars.cache.strategies.TTLStrategy"><code class="docutils literal notranslate"><span class="pre">TTLStrategy</span></code></a><ul>
+<li><a class="reference internal" href="#pipolars.cache.strategies.TTLStrategy.__init__"><code class="docutils literal notranslate"><span class="pre">TTLStrategy.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.cache.strategies.TTLStrategy.ttl"><code class="docutils literal notranslate"><span class="pre">TTLStrategy.ttl</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.cache.strategies.TTLStrategy.get_or_fetch"><code class="docutils literal notranslate"><span class="pre">TTLStrategy.get_or_fetch()</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.cache.strategies.TTLStrategy.set_with_ttl"><code class="docutils literal notranslate"><span class="pre">TTLStrategy.set_with_ttl()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#cache-key-generation">Cache Key Generation</a></li>
+<li><a class="reference internal" href="#cache-statistics">Cache Statistics</a></li>
+<li><a class="reference internal" href="#integration-with-piclient">Integration with PIClient</a></li>
+<li><a class="reference internal" href="#custom-cache-backend">Custom Cache Backend</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js?v=38b66d78"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/scripts/furo.js?v=46bd48cc"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=30646c52"></script>
+    </body>
+</html>

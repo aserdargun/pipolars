@@ -1,0 +1,764 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../../../">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html"><link rel="search" title="Search" href="../../../search.html">
+        <link rel="prefetch" href="../../../_static/logo-light.png" as="image">
+        <link rel="prefetch" href="../../../_static/logo-dark.png" as="image">
+
+    <!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
+        <title>pipolars.core.types - PIPolars 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=d111a655" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?v=8dab3a3b" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f2f2f2;
+  --color-code-foreground: #1e1e1e;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../../index.html"><div class="brand">PIPolars 0.1.0 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../index.html">
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo only-light" src="../../../_static/logo-light.png" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="../../../_static/logo-dark.png" alt="Dark Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">PIPolars 0.1.0 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../user_guide/index.html">User Guide</a><input aria-label="Toggle navigation of User Guide" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../user_guide/connecting.html">Connecting to PI Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user_guide/querying.html">Querying Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user_guide/time_expressions.html">Time Expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user_guide/dataframes.html">Working with Polars DataFrames</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user_guide/caching.html">Caching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user_guide/configuration.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../user_guide/advanced.html">Advanced Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/connecting.html">Connecting to PI Server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/querying.html">Querying Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/time_expressions.html">Time Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/dataframes.html">Working with Polars DataFrames</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/caching.html">Caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/advanced.html">Advanced Usage</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../api/index.html">API Reference</a><input aria-label="Toggle navigation of API Reference" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/_autosummary/pipolars.PIClient.html">pipolars.PIClient</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/_autosummary/pipolars.PIQuery.html">pipolars.PIQuery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/_autosummary/pipolars.PIConfig.html">pipolars.PIConfig</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/_autosummary/pipolars.AFTime.html">pipolars.AFTime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/_autosummary/pipolars.PIValue.html">pipolars.PIValue</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/_autosummary/pipolars.RetrievalMode.html">pipolars.RetrievalMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/_autosummary/pipolars.SummaryType.html">pipolars.SummaryType</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/_autosummary/pipolars.TimestampMode.html">pipolars.TimestampMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/_autosummary/pipolars.DataQuality.html">pipolars.DataQuality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/_autosummary/pipolars.PIPolarsError.html">pipolars.PIPolarsError</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/_autosummary/pipolars.PIConnectionError.html">pipolars.PIConnectionError</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/_autosummary/pipolars.PIDataError.html">pipolars.PIDataError</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/_autosummary/pipolars.PIQueryError.html">pipolars.PIQueryError</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/client.html">PIClient</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/query.html">PIQuery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/types.html">Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/config.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/exceptions.html">Exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/cache.html">Cache</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/client.html">PIClient</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/query.html">PIQuery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/types.html">Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/config.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/exceptions.html">Exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/cache.html">Cache</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Additional Information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <h1>Source code for pipolars.core.types</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Type definitions for PIPolars library.</span>
+
+<span class="sd">This module contains all the type definitions, enums, and data classes used</span>
+<span class="sd">throughout the library for type safety and better IDE support.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">Enum</span><span class="p">,</span> <span class="n">IntEnum</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">TypeAlias</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">polars</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pl</span>
+
+<span class="c1"># Type aliases for common types</span>
+<span class="n">PITimestamp</span><span class="p">:</span> <span class="n">TypeAlias</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">datetime</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;AFTime&quot;</span><span class="p">]</span>
+<span class="n">TagName</span><span class="p">:</span> <span class="n">TypeAlias</span> <span class="o">=</span> <span class="nb">str</span>
+<span class="n">TagPath</span><span class="p">:</span> <span class="n">TypeAlias</span> <span class="o">=</span> <span class="nb">str</span>
+
+
+<div class="viewcode-block" id="RetrievalMode">
+<a class="viewcode-back" href="../../../api/types.html#pipolars.RetrievalMode">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">RetrievalMode</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Data retrieval modes for PI Point queries.</span>
+
+<span class="sd">    These modes determine how data is retrieved from the PI Data Archive.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">RECORDED</span> <span class="o">=</span> <span class="s2">&quot;recorded&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return actual recorded values as stored in the archive.&quot;&quot;&quot;</span>
+
+    <span class="n">INTERPOLATED</span> <span class="o">=</span> <span class="s2">&quot;interpolated&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return interpolated values at regular intervals.&quot;&quot;&quot;</span>
+
+    <span class="n">PLOT</span> <span class="o">=</span> <span class="s2">&quot;plot&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return values optimized for plotting (reduced data density).&quot;&quot;&quot;</span>
+
+    <span class="n">SUMMARY</span> <span class="o">=</span> <span class="s2">&quot;summary&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return summary statistics (min, max, avg, etc.).&quot;&quot;&quot;</span>
+
+    <span class="n">COMPRESSED</span> <span class="o">=</span> <span class="s2">&quot;compressed&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return compressed data using exception/compression settings.&quot;&quot;&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="SummaryType">
+<a class="viewcode-back" href="../../../api/types.html#pipolars.SummaryType">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">SummaryType</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Summary calculation types for PI data.</span>
+
+<span class="sd">    These correspond to OSIsoft AF SDK AFSummaryTypes enumeration.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">NONE</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">TOTAL</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">AVERAGE</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">MINIMUM</span> <span class="o">=</span> <span class="mi">4</span>
+    <span class="n">MAXIMUM</span> <span class="o">=</span> <span class="mi">8</span>
+    <span class="n">RANGE</span> <span class="o">=</span> <span class="mi">16</span>
+    <span class="n">STD_DEV</span> <span class="o">=</span> <span class="mi">32</span>
+    <span class="n">POP_STD_DEV</span> <span class="o">=</span> <span class="mi">64</span>
+    <span class="n">COUNT</span> <span class="o">=</span> <span class="mi">128</span>
+    <span class="n">PERCENT_GOOD</span> <span class="o">=</span> <span class="mi">8192</span>
+    <span class="n">TOTAL_WITH_UOM</span> <span class="o">=</span> <span class="mi">16384</span>
+    <span class="n">ALL</span> <span class="o">=</span> <span class="mi">24831</span>
+    <span class="n">ALL_FOR_NON_NUMERIC</span> <span class="o">=</span> <span class="mi">8320</span></div>
+
+
+
+<div class="viewcode-block" id="TimestampMode">
+<a class="viewcode-back" href="../../../api/types.html#pipolars.TimestampMode">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TimestampMode</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Timestamp handling modes for summary calculations.&quot;&quot;&quot;</span>
+
+    <span class="n">AUTO</span> <span class="o">=</span> <span class="s2">&quot;auto&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Automatically determine timestamp placement.&quot;&quot;&quot;</span>
+
+    <span class="n">START</span> <span class="o">=</span> <span class="s2">&quot;start&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Use interval start time.&quot;&quot;&quot;</span>
+
+    <span class="n">END</span> <span class="o">=</span> <span class="s2">&quot;end&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Use interval end time.&quot;&quot;&quot;</span>
+
+    <span class="n">MIDDLE</span> <span class="o">=</span> <span class="s2">&quot;middle&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Use interval midpoint.&quot;&quot;&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="DataQuality">
+<a class="viewcode-back" href="../../../api/types.html#pipolars.DataQuality">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">DataQuality</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;PI data quality flags.</span>
+
+<span class="sd">    These flags indicate the quality and reliability of PI values.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">GOOD</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Value is good and reliable.&quot;&quot;&quot;</span>
+
+    <span class="n">SUBSTITUTED</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Value was manually substituted.&quot;&quot;&quot;</span>
+
+    <span class="n">QUESTIONABLE</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Value quality is questionable.&quot;&quot;&quot;</span>
+
+    <span class="n">BAD</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Value is bad or unreliable.&quot;&quot;&quot;</span>
+
+    <span class="n">NO_DATA</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;No data available for the requested time.&quot;&quot;&quot;</span>
+
+    <span class="n">CALC_FAILED</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculation failed to produce a value.&quot;&quot;&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="DigitalState">
+<a class="viewcode-back" href="../../../api/types.html#pipolars.DigitalState">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">DigitalState</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Common PI digital states.&quot;&quot;&quot;</span>
+
+    <span class="n">NO_DATA</span> <span class="o">=</span> <span class="s2">&quot;No Data&quot;</span>
+    <span class="n">BAD_INPUT</span> <span class="o">=</span> <span class="s2">&quot;Bad Input&quot;</span>
+    <span class="n">CALC_OFF</span> <span class="o">=</span> <span class="s2">&quot;Calc Off&quot;</span>
+    <span class="n">COMM_FAIL</span> <span class="o">=</span> <span class="s2">&quot;Comm Fail&quot;</span>
+    <span class="n">CONFIGURE</span> <span class="o">=</span> <span class="s2">&quot;Configure&quot;</span>
+    <span class="n">I_O_TIMEOUT</span> <span class="o">=</span> <span class="s2">&quot;I/O Timeout&quot;</span>
+    <span class="n">NO_SAMPLE</span> <span class="o">=</span> <span class="s2">&quot;No Sample&quot;</span>
+    <span class="n">SHUTDOWN</span> <span class="o">=</span> <span class="s2">&quot;Shutdown&quot;</span>
+    <span class="n">SCAN_OFF</span> <span class="o">=</span> <span class="s2">&quot;Scan Off&quot;</span>
+    <span class="n">OVER_RANGE</span> <span class="o">=</span> <span class="s2">&quot;Over Range&quot;</span>
+    <span class="n">UNDER_RANGE</span> <span class="o">=</span> <span class="s2">&quot;Under Range&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="PointType">
+<a class="viewcode-back" href="../../../api/types.html#pipolars.PointType">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">PointType</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;PI Point data types.&quot;&quot;&quot;</span>
+
+    <span class="n">FLOAT16</span> <span class="o">=</span> <span class="s2">&quot;float16&quot;</span>
+    <span class="n">FLOAT32</span> <span class="o">=</span> <span class="s2">&quot;float32&quot;</span>
+    <span class="n">FLOAT64</span> <span class="o">=</span> <span class="s2">&quot;float64&quot;</span>
+    <span class="n">INT16</span> <span class="o">=</span> <span class="s2">&quot;int16&quot;</span>
+    <span class="n">INT32</span> <span class="o">=</span> <span class="s2">&quot;int32&quot;</span>
+    <span class="n">DIGITAL</span> <span class="o">=</span> <span class="s2">&quot;digital&quot;</span>
+    <span class="n">TIMESTAMP</span> <span class="o">=</span> <span class="s2">&quot;timestamp&quot;</span>
+    <span class="n">STRING</span> <span class="o">=</span> <span class="s2">&quot;string&quot;</span>
+    <span class="n">BLOB</span> <span class="o">=</span> <span class="s2">&quot;blob&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="BoundaryType">
+<a class="viewcode-back" href="../../../api/types.html#pipolars.BoundaryType">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">BoundaryType</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Boundary handling for time range queries.&quot;&quot;&quot;</span>
+
+    <span class="n">INSIDE</span> <span class="o">=</span> <span class="s2">&quot;inside&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Only include values strictly inside the time range.&quot;&quot;&quot;</span>
+
+    <span class="n">OUTSIDE</span> <span class="o">=</span> <span class="s2">&quot;outside&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Include boundary values outside the range.&quot;&quot;&quot;</span>
+
+    <span class="n">INTERPOLATED</span> <span class="o">=</span> <span class="s2">&quot;interpolated&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Interpolate values at boundaries.&quot;&quot;&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="AFTime">
+<a class="viewcode-back" href="../../../api/types.html#pipolars.AFTime">[docs]</a>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">slots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">AFTime</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Represents a PI AF Time specification.</span>
+
+<span class="sd">    Supports both absolute timestamps and relative time expressions</span>
+<span class="sd">    like &quot;*&quot; (now), &quot;*-1d&quot; (1 day ago), &quot;t&quot; (today), etc.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; AFTime(&quot;*&quot;)  # Now</span>
+<span class="sd">        &gt;&gt;&gt; AFTime(&quot;*-1h&quot;)  # 1 hour ago</span>
+<span class="sd">        &gt;&gt;&gt; AFTime(&quot;2024-01-01&quot;)  # Absolute date</span>
+<span class="sd">        &gt;&gt;&gt; AFTime(&quot;t&quot;)  # Today at midnight</span>
+<span class="sd">        &gt;&gt;&gt; AFTime(&quot;y&quot;)  # Yesterday at midnight</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">expression</span><span class="p">:</span> <span class="nb">str</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The time expression string.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">expression</span>
+
+<div class="viewcode-block" id="AFTime.now">
+<a class="viewcode-back" href="../../../api/types.html#pipolars.AFTime.now">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">now</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AFTime</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create an AFTime representing the current time.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="s2">&quot;*&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="AFTime.today">
+<a class="viewcode-back" href="../../../api/types.html#pipolars.AFTime.today">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">today</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AFTime</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create an AFTime representing today at midnight.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="s2">&quot;t&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="AFTime.yesterday">
+<a class="viewcode-back" href="../../../api/types.html#pipolars.AFTime.yesterday">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">yesterday</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AFTime</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create an AFTime representing yesterday at midnight.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="AFTime.ago">
+<a class="viewcode-back" href="../../../api/types.html#pipolars.AFTime.ago">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">ago</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AFTime</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create an AFTime relative to now.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            **kwargs: Time units (days, hours, minutes, seconds)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            AFTime representing the relative time.</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            &gt;&gt;&gt; AFTime.ago(days=1, hours=2)  # 1 day and 2 hours ago</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">parts</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="n">days</span> <span class="o">:=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;days&quot;</span><span class="p">):</span>
+            <span class="n">parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">days</span><span class="si">}</span><span class="s2">d&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">hours</span> <span class="o">:=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;hours&quot;</span><span class="p">):</span>
+            <span class="n">parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">hours</span><span class="si">}</span><span class="s2">h&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">minutes</span> <span class="o">:=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;minutes&quot;</span><span class="p">):</span>
+            <span class="n">parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">minutes</span><span class="si">}</span><span class="s2">m&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">seconds</span> <span class="o">:=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;seconds&quot;</span><span class="p">):</span>
+            <span class="n">parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">seconds</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">)</span>
+
+        <span class="n">offset</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span> <span class="k">if</span> <span class="n">parts</span> <span class="k">else</span> <span class="s2">&quot;0s&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;*-</span><span class="si">{</span><span class="n">offset</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="AFTime.from_datetime">
+<a class="viewcode-back" href="../../../api/types.html#pipolars.AFTime.from_datetime">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_datetime</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">dt</span><span class="p">:</span> <span class="n">datetime</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AFTime</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create an AFTime from a Python datetime object.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">dt</span><span class="o">.</span><span class="n">isoformat</span><span class="p">())</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="PIValue">
+<a class="viewcode-back" href="../../../api/types.html#pipolars.PIValue">[docs]</a>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">slots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PIValue</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Represents a single PI value with timestamp and quality.</span>
+
+<span class="sd">    This is the fundamental data unit returned from PI queries.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">timestamp</span><span class="p">:</span> <span class="n">datetime</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The timestamp of the value.&quot;&quot;&quot;</span>
+
+    <span class="n">value</span><span class="p">:</span> <span class="n">Any</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The actual value (can be numeric, string, or digital state).&quot;&quot;&quot;</span>
+
+    <span class="n">quality</span><span class="p">:</span> <span class="n">DataQuality</span> <span class="o">=</span> <span class="n">DataQuality</span><span class="o">.</span><span class="n">GOOD</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The quality flag for this value.&quot;&quot;&quot;</span>
+
+    <span class="n">is_good</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convenience property indicating if the value is good quality.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_good</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">quality</span> <span class="o">==</span> <span class="n">DataQuality</span><span class="o">.</span><span class="n">GOOD</span>
+
+<div class="viewcode-block" id="PIValue.to_dict">
+<a class="viewcode-back" href="../../../api/types.html#pipolars.PIValue.to_dict">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert to a dictionary for DataFrame construction.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span><span class="p">,</span>
+            <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+            <span class="s2">&quot;quality&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">quality</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+        <span class="p">}</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="TimeRange">
+<a class="viewcode-back" href="../../../api/types.html#pipolars.TimeRange">[docs]</a>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">slots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">TimeRange</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Represents a time range for PI queries.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        start: Start time of the range</span>
+<span class="sd">        end: End time of the range</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">start</span><span class="p">:</span> <span class="n">PITimestamp</span>
+    <span class="n">end</span><span class="p">:</span> <span class="n">PITimestamp</span>
+
+<div class="viewcode-block" id="TimeRange.last">
+<a class="viewcode-back" href="../../../api/types.html#pipolars.TimeRange.last">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">last</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TimeRange</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a time range from now to the past.</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            &gt;&gt;&gt; TimeRange.last(days=7)  # Last 7 days</span>
+<span class="sd">            &gt;&gt;&gt; TimeRange.last(hours=24)  # Last 24 hours</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
+            <span class="n">start</span><span class="o">=</span><span class="n">AFTime</span><span class="o">.</span><span class="n">ago</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">),</span>
+            <span class="n">end</span><span class="o">=</span><span class="n">AFTime</span><span class="o">.</span><span class="n">now</span><span class="p">(),</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TimeRange.today">
+<a class="viewcode-back" href="../../../api/types.html#pipolars.TimeRange.today">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">today</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TimeRange</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a time range for today.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">AFTime</span><span class="o">.</span><span class="n">today</span><span class="p">(),</span> <span class="n">end</span><span class="o">=</span><span class="n">AFTime</span><span class="o">.</span><span class="n">now</span><span class="p">())</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="PointConfig">
+<a class="viewcode-back" href="../../../api/types.html#pipolars.PointConfig">[docs]</a>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">slots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PointConfig</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Configuration for a PI Point (tag).</span>
+
+<span class="sd">    Contains metadata about a PI Point retrieved from the server.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The PI Point name (tag name).&quot;&quot;&quot;</span>
+
+    <span class="n">point_id</span><span class="p">:</span> <span class="nb">int</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The unique point ID in the PI Data Archive.&quot;&quot;&quot;</span>
+
+    <span class="n">point_type</span><span class="p">:</span> <span class="n">PointType</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The data type of the point.&quot;&quot;&quot;</span>
+
+    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Description of the point.&quot;&quot;&quot;</span>
+
+    <span class="n">engineering_units</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Engineering units for the point.&quot;&quot;&quot;</span>
+
+    <span class="n">zero</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Zero value for scaling.&quot;&quot;&quot;</span>
+
+    <span class="n">span</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">100.0</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Span value for scaling.&quot;&quot;&quot;</span>
+
+    <span class="n">display_digits</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Number of display digits.&quot;&quot;&quot;</span>
+
+    <span class="n">typical_value</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Typical value for this point.&quot;&quot;&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="SummaryResult">
+<a class="viewcode-back" href="../../../api/types.html#pipolars.SummaryResult">[docs]</a>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">slots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SummaryResult</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Result of a summary calculation.</span>
+
+<span class="sd">    Contains the calculated summary values for a time range.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">tag</span><span class="p">:</span> <span class="nb">str</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The PI Point name.&quot;&quot;&quot;</span>
+
+    <span class="n">start</span><span class="p">:</span> <span class="n">datetime</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Start time of the summary period.&quot;&quot;&quot;</span>
+
+    <span class="n">end</span><span class="p">:</span> <span class="n">datetime</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;End time of the summary period.&quot;&quot;&quot;</span>
+
+    <span class="n">average</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">minimum</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">maximum</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">total</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">std_dev</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="nb">range</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">percent_good</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+
+
+<span class="c1"># Polars schema definitions for PI data</span>
+<span class="n">PI_VALUE_SCHEMA</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pl</span><span class="o">.</span><span class="n">DataType</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Datetime</span><span class="p">(</span><span class="s2">&quot;us&quot;</span><span class="p">,</span> <span class="s2">&quot;UTC&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Float64</span><span class="p">(),</span>
+    <span class="s2">&quot;quality&quot;</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Int8</span><span class="p">(),</span>
+<span class="p">}</span>
+
+<span class="n">PI_VALUE_WITH_TAG_SCHEMA</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pl</span><span class="o">.</span><span class="n">DataType</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;tag&quot;</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Utf8</span><span class="p">(),</span>
+    <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Datetime</span><span class="p">(</span><span class="s2">&quot;us&quot;</span><span class="p">,</span> <span class="s2">&quot;UTC&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Float64</span><span class="p">(),</span>
+    <span class="s2">&quot;quality&quot;</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Int8</span><span class="p">(),</span>
+<span class="p">}</span>
+
+<span class="n">SUMMARY_SCHEMA</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pl</span><span class="o">.</span><span class="n">DataType</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;tag&quot;</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Utf8</span><span class="p">(),</span>
+    <span class="s2">&quot;start&quot;</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Datetime</span><span class="p">(</span><span class="s2">&quot;us&quot;</span><span class="p">,</span> <span class="s2">&quot;UTC&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;end&quot;</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Datetime</span><span class="p">(</span><span class="s2">&quot;us&quot;</span><span class="p">,</span> <span class="s2">&quot;UTC&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;average&quot;</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Float64</span><span class="p">(),</span>
+    <span class="s2">&quot;minimum&quot;</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Float64</span><span class="p">(),</span>
+    <span class="s2">&quot;maximum&quot;</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Float64</span><span class="p">(),</span>
+    <span class="s2">&quot;total&quot;</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Float64</span><span class="p">(),</span>
+    <span class="s2">&quot;count&quot;</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Int64</span><span class="p">(),</span>
+    <span class="s2">&quot;std_dev&quot;</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Float64</span><span class="p">(),</span>
+    <span class="s2">&quot;percent_good&quot;</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Float64</span><span class="p">(),</span>
+<span class="p">}</span>
+</pre></div>
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2025, PIPolars Contributors
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            <div class="icons">
+              <a class="muted-link " href="https://github.com/pipolars/pipolars" aria-label="GitHub">
+                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
+                </svg>
+            </a>
+              
+            </div>
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script src="../../../_static/documentation_options.js?v=38b66d78"></script>
+    <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/scripts/furo.js?v=46bd48cc"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=30646c52"></script>
+    </body>
+</html>

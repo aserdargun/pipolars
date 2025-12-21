@@ -11,7 +11,10 @@
       "Bash(\".venv\\\\Scripts\\\\ruff.exe\" check src)",
       "Bash(\".venv\\\\Scripts\\\\python.exe\" -m pytest tests/unit -v)",
       "Bash(\".venv\\\\Scripts\\\\python.exe\" -m mypy src)",
-      "Bash(mkdir -p:*)"
+      "Bash(mkdir -p:*)",
+      "Bash(uv pip install:*)",
+      "Bash(git -C \"C:\\\\Users\\\\serdar.gundogdu\\\\OneDrive - Enerjisa Üretim\\\\GOALS\\\\01_PROJECTS\\\\AI-FIRST_2026\\\\pipolars\" log --oneline)",
+      "Bash(git -C \"C:\\\\Users\\\\serdar.gundogdu\\\\OneDrive - Enerjisa Üretim\\\\GOALS\\\\01_PROJECTS\\\\AI-FIRST_2026\\\\pipolars\" remote:*)"
     ]
   }
 }

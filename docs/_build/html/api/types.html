@@ -1,0 +1,1715 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="Configuration" href="config.html"><link rel="prev" title="PIQuery" href="query.html">
+        <link rel="prefetch" href="../_static/logo-light.png" as="image">
+        <link rel="prefetch" href="../_static/logo-dark.png" as="image">
+
+    <!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
+        <title>Types - PIPolars 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f2f2f2;
+  --color-code-foreground: #1e1e1e;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">PIPolars 0.1.0 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo only-light" src="../_static/logo-light.png" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="../_static/logo-dark.png" alt="Dark Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">PIPolars 0.1.0 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../user_guide/index.html">User Guide</a><input aria-label="Toggle navigation of User Guide" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../user_guide/connecting.html">Connecting to PI Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user_guide/querying.html">Querying Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user_guide/time_expressions.html">Time Expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user_guide/dataframes.html">Working with Polars DataFrames</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user_guide/caching.html">Caching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user_guide/configuration.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user_guide/advanced.html">Advanced Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/connecting.html">Connecting to PI Server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/querying.html">Querying Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/time_expressions.html">Time Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/dataframes.html">Working with Polars DataFrames</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/caching.html">Caching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/advanced.html">Advanced Usage</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">API Reference</a><input aria-label="Toggle navigation of API Reference" checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/pipolars.PIClient.html">pipolars.PIClient</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/pipolars.PIQuery.html">pipolars.PIQuery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/pipolars.PIConfig.html">pipolars.PIConfig</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/pipolars.AFTime.html">pipolars.AFTime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/pipolars.PIValue.html">pipolars.PIValue</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/pipolars.RetrievalMode.html">pipolars.RetrievalMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/pipolars.SummaryType.html">pipolars.SummaryType</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/pipolars.TimestampMode.html">pipolars.TimestampMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/pipolars.DataQuality.html">pipolars.DataQuality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/pipolars.PIPolarsError.html">pipolars.PIPolarsError</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/pipolars.PIConnectionError.html">pipolars.PIConnectionError</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/pipolars.PIDataError.html">pipolars.PIDataError</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/pipolars.PIQueryError.html">pipolars.PIQueryError</a></li>
+<li class="toctree-l2"><a class="reference internal" href="client.html">PIClient</a></li>
+<li class="toctree-l2"><a class="reference internal" href="query.html">PIQuery</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cache.html">Cache</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="client.html">PIClient</a></li>
+<li class="toctree-l1"><a class="reference internal" href="query.html">PIQuery</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cache.html">Cache</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Additional Information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="https://github.com/pipolars/pipolars/blob/main/docs/api/types.rst?plain=true" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div><div class="edit-this-page">
+  <a class="muted-link" href="https://github.com/pipolars/pipolars/edit/main/docs/api/types.rst" rel="edit" title="Edit this page">
+    <svg><use href="#svg-pencil"></use></svg>
+    <span class="visually-hidden">Edit this page</span>
+  </a>
+</div><div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="module-pipolars.core.types">
+<span id="types"></span><h1>Types<a class="headerlink" href="#module-pipolars.core.types" title="Link to this heading">¶</a></h1>
+<p>This module contains type definitions, enums, and data classes used
+throughout PIPolars.</p>
+<section id="type-aliases">
+<h2>Type Aliases<a class="headerlink" href="#type-aliases" title="Link to this heading">¶</a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="pipolars.core.types.PITimestamp">
+<span class="sig-prename descclassname"><span class="pre">pipolars.core.types.</span></span><span class="sig-name descname"><span class="pre">PITimestamp</span></span><a class="headerlink" href="#pipolars.core.types.PITimestamp" title="Link to this definition">¶</a></dt>
+<dd><p>Type alias for timestamps: <code class="docutils literal notranslate"><span class="pre">Union[datetime,</span> <span class="pre">str,</span> <span class="pre">AFTime]</span></code></p>
+<p>Accepts:
+- Python <code class="docutils literal notranslate"><span class="pre">datetime</span></code> objects
+- PI time expression strings (e.g., <code class="docutils literal notranslate"><span class="pre">&quot;*-1d&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;t&quot;</span></code>)
+- <code class="docutils literal notranslate"><span class="pre">AFTime</span></code> objects</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pipolars.core.types.TagName">
+<span class="sig-prename descclassname"><span class="pre">pipolars.core.types.</span></span><span class="sig-name descname"><span class="pre">TagName</span></span><a class="headerlink" href="#pipolars.core.types.TagName" title="Link to this definition">¶</a></dt>
+<dd><p>Type alias for tag names: <code class="docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pipolars.core.types.TagPath">
+<span class="sig-prename descclassname"><span class="pre">pipolars.core.types.</span></span><span class="sig-name descname"><span class="pre">TagPath</span></span><a class="headerlink" href="#pipolars.core.types.TagPath" title="Link to this definition">¶</a></dt>
+<dd><p>Type alias for AF attribute paths: <code class="docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd></dl>
+
+</section>
+<section id="aftime-class">
+<h2>AFTime Class<a class="headerlink" href="#aftime-class" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pipolars.AFTime">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pipolars.</span></span><span class="sig-name descname"><span class="pre">AFTime</span></span><a class="reference internal" href="../_modules/pipolars/core/types.html#AFTime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipolars.AFTime" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Represents a PI AF Time specification.</p>
+<p>Supports both absolute timestamps and relative time expressions
+like “*” (now), “<a href="#id1"><span class="problematic" id="id2">*</span></a>-1d” (1 day ago), “t” (today), etc.</p>
+<div class="admonition-examples admonition">
+<p class="admonition-title">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">AFTime</span><span class="p">(</span><span class="s2">&quot;*&quot;</span><span class="p">)</span>  <span class="c1"># Now</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">AFTime</span><span class="p">(</span><span class="s2">&quot;*-1h&quot;</span><span class="p">)</span>  <span class="c1"># 1 hour ago</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">AFTime</span><span class="p">(</span><span class="s2">&quot;2024-01-01&quot;</span><span class="p">)</span>  <span class="c1"># Absolute date</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">AFTime</span><span class="p">(</span><span class="s2">&quot;t&quot;</span><span class="p">)</span>  <span class="c1"># Today at midnight</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">AFTime</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">)</span>  <span class="c1"># Yesterday at midnight</span>
+</pre></div>
+</div>
+</div>
+<p class="rubric">Class Methods</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pipolars.AFTime.now">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">now</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pipolars/core/types.html#AFTime.now"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipolars.AFTime.now" title="Link to this definition">¶</a></dt>
+<dd><p>Create an AFTime representing the current time.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pipolars.AFTime.today">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">today</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pipolars/core/types.html#AFTime.today"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipolars.AFTime.today" title="Link to this definition">¶</a></dt>
+<dd><p>Create an AFTime representing today at midnight.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pipolars.AFTime.yesterday">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">yesterday</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pipolars/core/types.html#AFTime.yesterday"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipolars.AFTime.yesterday" title="Link to this definition">¶</a></dt>
+<dd><p>Create an AFTime representing yesterday at midnight.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pipolars.AFTime.ago">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">ago</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pipolars/core/types.html#AFTime.ago"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipolars.AFTime.ago" title="Link to this definition">¶</a></dt>
+<dd><p>Create an AFTime relative to now.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Time units (days, hours, minutes, seconds)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>AFTime representing the relative time.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#pipolars.AFTime" title="pipolars.core.types.AFTime"><em>AFTime</em></a></p>
+</dd>
+</dl>
+<div class="admonition-example admonition">
+<p class="admonition-title">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">AFTime</span><span class="o">.</span><span class="n">ago</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">hours</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># 1 day and 2 hours ago</span>
+</pre></div>
+</div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pipolars.AFTime.from_datetime">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">from_datetime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dt</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pipolars/core/types.html#AFTime.from_datetime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipolars.AFTime.from_datetime" title="Link to this definition">¶</a></dt>
+<dd><p>Create an AFTime from a Python datetime object.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.AFTime.expression">
+<span class="sig-name descname"><span class="pre">expression</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pipolars.AFTime.expression" title="Link to this definition">¶</a></dt>
+<dd><p>The time expression string.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id0">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">now</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pipolars/core/types.html#AFTime.now"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id0" title="Link to this definition">¶</a></dt>
+<dd><p>Create an AFTime representing the current time.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id3">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">today</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pipolars/core/types.html#AFTime.today"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id3" title="Link to this definition">¶</a></dt>
+<dd><p>Create an AFTime representing today at midnight.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id4">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">yesterday</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pipolars/core/types.html#AFTime.yesterday"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id4" title="Link to this definition">¶</a></dt>
+<dd><p>Create an AFTime representing yesterday at midnight.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id5">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">ago</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pipolars/core/types.html#AFTime.ago"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id5" title="Link to this definition">¶</a></dt>
+<dd><p>Create an AFTime relative to now.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Time units (days, hours, minutes, seconds)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>AFTime representing the relative time.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#pipolars.AFTime" title="pipolars.core.types.AFTime"><em>AFTime</em></a></p>
+</dd>
+</dl>
+<div class="admonition-example admonition">
+<p class="admonition-title">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">AFTime</span><span class="o">.</span><span class="n">ago</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">hours</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># 1 day and 2 hours ago</span>
+</pre></div>
+</div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id6">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">from_datetime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dt</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pipolars/core/types.html#AFTime.from_datetime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id6" title="Link to this definition">¶</a></dt>
+<dd><p>Create an AFTime from a Python datetime object.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pipolars.AFTime.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expression</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pipolars.AFTime.__init__" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p>Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pipolars</span><span class="w"> </span><span class="kn">import</span> <span class="n">AFTime</span>
+
+<span class="c1"># Create from expression</span>
+<span class="n">now</span> <span class="o">=</span> <span class="n">AFTime</span><span class="p">(</span><span class="s2">&quot;*&quot;</span><span class="p">)</span>
+<span class="n">yesterday</span> <span class="o">=</span> <span class="n">AFTime</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">)</span>
+
+<span class="c1"># Use class methods</span>
+<span class="n">now</span> <span class="o">=</span> <span class="n">AFTime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="n">today</span> <span class="o">=</span> <span class="n">AFTime</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
+<span class="n">one_hour_ago</span> <span class="o">=</span> <span class="n">AFTime</span><span class="o">.</span><span class="n">ago</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">complex_ago</span> <span class="o">=</span> <span class="n">AFTime</span><span class="o">.</span><span class="n">ago</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">hours</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">minutes</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+
+<span class="c1"># From datetime</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
+<span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2024</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">af_time</span> <span class="o">=</span> <span class="n">AFTime</span><span class="o">.</span><span class="n">from_datetime</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="pivalue-class">
+<h2>PIValue Class<a class="headerlink" href="#pivalue-class" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pipolars.PIValue">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pipolars.</span></span><span class="sig-name descname"><span class="pre">PIValue</span></span><a class="reference internal" href="../_modules/pipolars/core/types.html#PIValue"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipolars.PIValue" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Represents a single PI value with timestamp and quality.</p>
+<p>This is the fundamental data unit returned from PI queries.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.PIValue.timestamp">
+<span class="sig-name descname"><span class="pre">timestamp</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.14)"><span class="pre">datetime</span></a></span><a class="headerlink" href="#pipolars.PIValue.timestamp" title="Link to this definition">¶</a></dt>
+<dd><p>The timestamp of the value.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.PIValue.value">
+<span class="sig-name descname"><span class="pre">value</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span><a class="headerlink" href="#pipolars.PIValue.value" title="Link to this definition">¶</a></dt>
+<dd><p>The actual value (can be numeric, string, or digital state).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.PIValue.quality">
+<span class="sig-name descname"><span class="pre">quality</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#pipolars.DataQuality" title="pipolars.core.types.DataQuality"><span class="pre">DataQuality</span></a></span><a class="headerlink" href="#pipolars.PIValue.quality" title="Link to this definition">¶</a></dt>
+<dd><p>The quality flag for this value.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.PIValue.is_good">
+<span class="sig-name descname"><span class="pre">is_good</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#pipolars.PIValue.is_good" title="Link to this definition">¶</a></dt>
+<dd><p>Convenience property indicating if the value is good quality.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pipolars.PIValue.to_dict">
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pipolars/core/types.html#PIValue.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipolars.PIValue.to_dict" title="Link to this definition">¶</a></dt>
+<dd><p>Convert to a dictionary for DataFrame construction.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pipolars.PIValue.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timestamp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quality</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">DataQuality.GOOD</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pipolars.PIValue.__init__" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="timerange-class">
+<h2>TimeRange Class<a class="headerlink" href="#timerange-class" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pipolars.core.types.TimeRange">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pipolars.core.types.</span></span><span class="sig-name descname"><span class="pre">TimeRange</span></span><a class="reference internal" href="../_modules/pipolars/core/types.html#TimeRange"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipolars.core.types.TimeRange" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Represents a time range for PI queries.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.core.types.TimeRange.start">
+<span class="sig-name descname"><span class="pre">start</span></span><a class="headerlink" href="#pipolars.core.types.TimeRange.start" title="Link to this definition">¶</a></dt>
+<dd><p>Start time of the range</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.14)">datetime.datetime</a> | <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a> | <a class="reference internal" href="#pipolars.AFTime" title="pipolars.core.types.AFTime">pipolars.core.types.AFTime</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.core.types.TimeRange.end">
+<span class="sig-name descname"><span class="pre">end</span></span><a class="headerlink" href="#pipolars.core.types.TimeRange.end" title="Link to this definition">¶</a></dt>
+<dd><p>End time of the range</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.14)">datetime.datetime</a> | <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a> | <a class="reference internal" href="#pipolars.AFTime" title="pipolars.core.types.AFTime">pipolars.core.types.AFTime</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Class Methods</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pipolars.core.types.TimeRange.last">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">last</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pipolars/core/types.html#TimeRange.last"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipolars.core.types.TimeRange.last" title="Link to this definition">¶</a></dt>
+<dd><p>Create a time range from now to the past.</p>
+<div class="admonition-example admonition">
+<p class="admonition-title">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">TimeRange</span><span class="o">.</span><span class="n">last</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>  <span class="c1"># Last 7 days</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">TimeRange</span><span class="o">.</span><span class="n">last</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span>  <span class="c1"># Last 24 hours</span>
+</pre></div>
+</div>
+</div>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pipolars.core.types.TimeRange.today">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">today</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pipolars/core/types.html#TimeRange.today"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipolars.core.types.TimeRange.today" title="Link to this definition">¶</a></dt>
+<dd><p>Create a time range for today.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id7">
+<span class="sig-name descname"><span class="pre">start</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.14)"><span class="pre">datetime</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#pipolars.AFTime" title="pipolars.core.types.AFTime"><span class="pre">AFTime</span></a></span><a class="headerlink" href="#id7" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id8">
+<span class="sig-name descname"><span class="pre">end</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.14)"><span class="pre">datetime</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#pipolars.AFTime" title="pipolars.core.types.AFTime"><span class="pre">AFTime</span></a></span><a class="headerlink" href="#id8" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id9">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">last</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pipolars/core/types.html#TimeRange.last"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id9" title="Link to this definition">¶</a></dt>
+<dd><p>Create a time range from now to the past.</p>
+<div class="admonition-example admonition">
+<p class="admonition-title">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">TimeRange</span><span class="o">.</span><span class="n">last</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>  <span class="c1"># Last 7 days</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">TimeRange</span><span class="o">.</span><span class="n">last</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span>  <span class="c1"># Last 24 hours</span>
+</pre></div>
+</div>
+</div>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id10">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">today</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pipolars/core/types.html#TimeRange.today"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id10" title="Link to this definition">¶</a></dt>
+<dd><p>Create a time range for today.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pipolars.core.types.TimeRange.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pipolars.core.types.TimeRange.__init__" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p>Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pipolars.core.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">TimeRange</span><span class="p">,</span> <span class="n">AFTime</span>
+
+<span class="c1"># Create time range</span>
+<span class="n">time_range</span> <span class="o">=</span> <span class="n">TimeRange</span><span class="p">(</span>
+    <span class="n">start</span><span class="o">=</span><span class="n">AFTime</span><span class="p">(</span><span class="s2">&quot;*-1d&quot;</span><span class="p">),</span>
+    <span class="n">end</span><span class="o">=</span><span class="n">AFTime</span><span class="p">(</span><span class="s2">&quot;*&quot;</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="c1"># Use convenience methods</span>
+<span class="n">last_week</span> <span class="o">=</span> <span class="n">TimeRange</span><span class="o">.</span><span class="n">last</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+<span class="n">today</span> <span class="o">=</span> <span class="n">TimeRange</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="pointconfig-class">
+<h2>PointConfig Class<a class="headerlink" href="#pointconfig-class" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pipolars.core.types.PointConfig">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pipolars.core.types.</span></span><span class="sig-name descname"><span class="pre">PointConfig</span></span><a class="reference internal" href="../_modules/pipolars/core/types.html#PointConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipolars.core.types.PointConfig" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Configuration for a PI Point (tag).</p>
+<p>Contains metadata about a PI Point retrieved from the server.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.core.types.PointConfig.name">
+<span class="sig-name descname"><span class="pre">name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pipolars.core.types.PointConfig.name" title="Link to this definition">¶</a></dt>
+<dd><p>The PI Point name (tag name).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pipolars.core.types.PointConfig.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">point_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">point_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">engineering_units</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zero</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">span</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">display_digits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">typical_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pipolars.core.types.PointConfig.__init__" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.core.types.PointConfig.point_id">
+<span class="sig-name descname"><span class="pre">point_id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pipolars.core.types.PointConfig.point_id" title="Link to this definition">¶</a></dt>
+<dd><p>The unique point ID in the PI Data Archive.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.core.types.PointConfig.point_type">
+<span class="sig-name descname"><span class="pre">point_type</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#pipolars.core.types.PointType" title="pipolars.core.types.PointType"><span class="pre">PointType</span></a></span><a class="headerlink" href="#pipolars.core.types.PointConfig.point_type" title="Link to this definition">¶</a></dt>
+<dd><p>The data type of the point.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.core.types.PointConfig.description">
+<span class="sig-name descname"><span class="pre">description</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pipolars.core.types.PointConfig.description" title="Link to this definition">¶</a></dt>
+<dd><p>Description of the point.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.core.types.PointConfig.engineering_units">
+<span class="sig-name descname"><span class="pre">engineering_units</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pipolars.core.types.PointConfig.engineering_units" title="Link to this definition">¶</a></dt>
+<dd><p>Engineering units for the point.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.core.types.PointConfig.zero">
+<span class="sig-name descname"><span class="pre">zero</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span><a class="headerlink" href="#pipolars.core.types.PointConfig.zero" title="Link to this definition">¶</a></dt>
+<dd><p>Zero value for scaling.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.core.types.PointConfig.span">
+<span class="sig-name descname"><span class="pre">span</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span><a class="headerlink" href="#pipolars.core.types.PointConfig.span" title="Link to this definition">¶</a></dt>
+<dd><p>Span value for scaling.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.core.types.PointConfig.display_digits">
+<span class="sig-name descname"><span class="pre">display_digits</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#pipolars.core.types.PointConfig.display_digits" title="Link to this definition">¶</a></dt>
+<dd><p>Number of display digits.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.core.types.PointConfig.typical_value">
+<span class="sig-name descname"><span class="pre">typical_value</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><a class="headerlink" href="#pipolars.core.types.PointConfig.typical_value" title="Link to this definition">¶</a></dt>
+<dd><p>Typical value for this point.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="summaryresult-class">
+<h2>SummaryResult Class<a class="headerlink" href="#summaryresult-class" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pipolars.core.types.SummaryResult">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pipolars.core.types.</span></span><span class="sig-name descname"><span class="pre">SummaryResult</span></span><a class="reference internal" href="../_modules/pipolars/core/types.html#SummaryResult"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipolars.core.types.SummaryResult" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Result of a summary calculation.</p>
+<p>Contains the calculated summary values for a time range.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pipolars.core.types.SummaryResult.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tag</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">average</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minimum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maximum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">std_dev</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">range</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">percent_good</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pipolars.core.types.SummaryResult.__init__" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.core.types.SummaryResult.tag">
+<span class="sig-name descname"><span class="pre">tag</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#pipolars.core.types.SummaryResult.tag" title="Link to this definition">¶</a></dt>
+<dd><p>The PI Point name.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.core.types.SummaryResult.start">
+<span class="sig-name descname"><span class="pre">start</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.14)"><span class="pre">datetime</span></a></span><a class="headerlink" href="#pipolars.core.types.SummaryResult.start" title="Link to this definition">¶</a></dt>
+<dd><p>Start time of the summary period.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.core.types.SummaryResult.end">
+<span class="sig-name descname"><span class="pre">end</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.14)"><span class="pre">datetime</span></a></span><a class="headerlink" href="#pipolars.core.types.SummaryResult.end" title="Link to this definition">¶</a></dt>
+<dd><p>End time of the summary period.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.core.types.SummaryResult.average">
+<span class="sig-name descname"><span class="pre">average</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><a class="headerlink" href="#pipolars.core.types.SummaryResult.average" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.core.types.SummaryResult.minimum">
+<span class="sig-name descname"><span class="pre">minimum</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><a class="headerlink" href="#pipolars.core.types.SummaryResult.minimum" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.core.types.SummaryResult.maximum">
+<span class="sig-name descname"><span class="pre">maximum</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><a class="headerlink" href="#pipolars.core.types.SummaryResult.maximum" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.core.types.SummaryResult.total">
+<span class="sig-name descname"><span class="pre">total</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><a class="headerlink" href="#pipolars.core.types.SummaryResult.total" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.core.types.SummaryResult.count">
+<span class="sig-name descname"><span class="pre">count</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><a class="headerlink" href="#pipolars.core.types.SummaryResult.count" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.core.types.SummaryResult.std_dev">
+<span class="sig-name descname"><span class="pre">std_dev</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><a class="headerlink" href="#pipolars.core.types.SummaryResult.std_dev" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.core.types.SummaryResult.range">
+<span class="sig-name descname"><span class="pre">range</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><a class="headerlink" href="#pipolars.core.types.SummaryResult.range" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.core.types.SummaryResult.percent_good">
+<span class="sig-name descname"><span class="pre">percent_good</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><a class="headerlink" href="#pipolars.core.types.SummaryResult.percent_good" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="enumerations">
+<h2>Enumerations<a class="headerlink" href="#enumerations" title="Link to this heading">¶</a></h2>
+<section id="retrievalmode">
+<h3>RetrievalMode<a class="headerlink" href="#retrievalmode" title="Link to this heading">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="pipolars.RetrievalMode">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pipolars.</span></span><span class="sig-name descname"><span class="pre">RetrievalMode</span></span><a class="reference internal" href="../_modules/pipolars/core/types.html#RetrievalMode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipolars.RetrievalMode" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.Enum" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a></p>
+<p>Data retrieval modes for PI Point queries.</p>
+<p>These modes determine how data is retrieved from the PI Data Archive.</p>
+<p>Data retrieval modes for PI queries.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.RetrievalMode.RECORDED">
+<span class="sig-name descname"><span class="pre">RECORDED</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&quot;recorded&quot;</span></span><a class="headerlink" href="#pipolars.RetrievalMode.RECORDED" title="Link to this definition">¶</a></dt>
+<dd><p>Return actual recorded values as stored in the archive.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.RetrievalMode.INTERPOLATED">
+<span class="sig-name descname"><span class="pre">INTERPOLATED</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&quot;interpolated&quot;</span></span><a class="headerlink" href="#pipolars.RetrievalMode.INTERPOLATED" title="Link to this definition">¶</a></dt>
+<dd><p>Return interpolated values at regular intervals.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.RetrievalMode.PLOT">
+<span class="sig-name descname"><span class="pre">PLOT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&quot;plot&quot;</span></span><a class="headerlink" href="#pipolars.RetrievalMode.PLOT" title="Link to this definition">¶</a></dt>
+<dd><p>Return values optimized for plotting (reduced data density).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.RetrievalMode.SUMMARY">
+<span class="sig-name descname"><span class="pre">SUMMARY</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&quot;summary&quot;</span></span><a class="headerlink" href="#pipolars.RetrievalMode.SUMMARY" title="Link to this definition">¶</a></dt>
+<dd><p>Return summary statistics (min, max, avg, etc.).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.RetrievalMode.COMPRESSED">
+<span class="sig-name descname"><span class="pre">COMPRESSED</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&quot;compressed&quot;</span></span><a class="headerlink" href="#pipolars.RetrievalMode.COMPRESSED" title="Link to this definition">¶</a></dt>
+<dd><p>Return compressed data using exception/compression settings.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id11">
+<span class="sig-name descname"><span class="pre">RECORDED</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'recorded'</span></span><a class="headerlink" href="#id11" title="Link to this definition">¶</a></dt>
+<dd><p>Return actual recorded values as stored in the archive.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id12">
+<span class="sig-name descname"><span class="pre">INTERPOLATED</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'interpolated'</span></span><a class="headerlink" href="#id12" title="Link to this definition">¶</a></dt>
+<dd><p>Return interpolated values at regular intervals.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id13">
+<span class="sig-name descname"><span class="pre">PLOT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'plot'</span></span><a class="headerlink" href="#id13" title="Link to this definition">¶</a></dt>
+<dd><p>Return values optimized for plotting (reduced data density).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id14">
+<span class="sig-name descname"><span class="pre">SUMMARY</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'summary'</span></span><a class="headerlink" href="#id14" title="Link to this definition">¶</a></dt>
+<dd><p>Return summary statistics (min, max, avg, etc.).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id15">
+<span class="sig-name descname"><span class="pre">COMPRESSED</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'compressed'</span></span><a class="headerlink" href="#id15" title="Link to this definition">¶</a></dt>
+<dd><p>Return compressed data using exception/compression settings.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pipolars.RetrievalMode.__new__">
+<span class="sig-name descname"><span class="pre">__new__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pipolars.RetrievalMode.__new__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="summarytype">
+<h3>SummaryType<a class="headerlink" href="#summarytype" title="Link to this heading">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="pipolars.SummaryType">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pipolars.</span></span><span class="sig-name descname"><span class="pre">SummaryType</span></span><a class="reference internal" href="../_modules/pipolars/core/types.html#SummaryType"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipolars.SummaryType" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.IntEnum" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntEnum</span></code></a></p>
+<p>Summary calculation types for PI data.</p>
+<p>These correspond to OSIsoft AF SDK AFSummaryTypes enumeration.</p>
+<p>Summary calculation types for PI data.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.SummaryType.TOTAL">
+<span class="sig-name descname"><span class="pre">TOTAL</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></span><a class="headerlink" href="#pipolars.SummaryType.TOTAL" title="Link to this definition">¶</a></dt>
+<dd><p>Sum of values.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.SummaryType.AVERAGE">
+<span class="sig-name descname"><span class="pre">AVERAGE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></span><a class="headerlink" href="#pipolars.SummaryType.AVERAGE" title="Link to this definition">¶</a></dt>
+<dd><p>Time-weighted average.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.SummaryType.MINIMUM">
+<span class="sig-name descname"><span class="pre">MINIMUM</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></span><a class="headerlink" href="#pipolars.SummaryType.MINIMUM" title="Link to this definition">¶</a></dt>
+<dd><p>Minimum value.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.SummaryType.MAXIMUM">
+<span class="sig-name descname"><span class="pre">MAXIMUM</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">8</span></span><a class="headerlink" href="#pipolars.SummaryType.MAXIMUM" title="Link to this definition">¶</a></dt>
+<dd><p>Maximum value.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.SummaryType.RANGE">
+<span class="sig-name descname"><span class="pre">RANGE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">16</span></span><a class="headerlink" href="#pipolars.SummaryType.RANGE" title="Link to this definition">¶</a></dt>
+<dd><p>Range (max - min).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.SummaryType.STD_DEV">
+<span class="sig-name descname"><span class="pre">STD_DEV</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">32</span></span><a class="headerlink" href="#pipolars.SummaryType.STD_DEV" title="Link to this definition">¶</a></dt>
+<dd><p>Standard deviation.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.SummaryType.POP_STD_DEV">
+<span class="sig-name descname"><span class="pre">POP_STD_DEV</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">64</span></span><a class="headerlink" href="#pipolars.SummaryType.POP_STD_DEV" title="Link to this definition">¶</a></dt>
+<dd><p>Population standard deviation.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.SummaryType.COUNT">
+<span class="sig-name descname"><span class="pre">COUNT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">128</span></span><a class="headerlink" href="#pipolars.SummaryType.COUNT" title="Link to this definition">¶</a></dt>
+<dd><p>Number of values.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.SummaryType.PERCENT_GOOD">
+<span class="sig-name descname"><span class="pre">PERCENT_GOOD</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">8192</span></span><a class="headerlink" href="#pipolars.SummaryType.PERCENT_GOOD" title="Link to this definition">¶</a></dt>
+<dd><p>Percentage of good values.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.SummaryType.NONE">
+<span class="sig-name descname"><span class="pre">NONE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></span><a class="headerlink" href="#pipolars.SummaryType.NONE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id16">
+<span class="sig-name descname"><span class="pre">TOTAL</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></span><a class="headerlink" href="#id16" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id17">
+<span class="sig-name descname"><span class="pre">AVERAGE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></span><a class="headerlink" href="#id17" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id18">
+<span class="sig-name descname"><span class="pre">MINIMUM</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></span><a class="headerlink" href="#id18" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id19">
+<span class="sig-name descname"><span class="pre">MAXIMUM</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">8</span></span><a class="headerlink" href="#id19" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id20">
+<span class="sig-name descname"><span class="pre">RANGE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">16</span></span><a class="headerlink" href="#id20" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id21">
+<span class="sig-name descname"><span class="pre">STD_DEV</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">32</span></span><a class="headerlink" href="#id21" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id22">
+<span class="sig-name descname"><span class="pre">POP_STD_DEV</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">64</span></span><a class="headerlink" href="#id22" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id23">
+<span class="sig-name descname"><span class="pre">COUNT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">128</span></span><a class="headerlink" href="#id23" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id24">
+<span class="sig-name descname"><span class="pre">PERCENT_GOOD</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">8192</span></span><a class="headerlink" href="#id24" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.SummaryType.TOTAL_WITH_UOM">
+<span class="sig-name descname"><span class="pre">TOTAL_WITH_UOM</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">16384</span></span><a class="headerlink" href="#pipolars.SummaryType.TOTAL_WITH_UOM" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.SummaryType.ALL">
+<span class="sig-name descname"><span class="pre">ALL</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">24831</span></span><a class="headerlink" href="#pipolars.SummaryType.ALL" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.SummaryType.ALL_FOR_NON_NUMERIC">
+<span class="sig-name descname"><span class="pre">ALL_FOR_NON_NUMERIC</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">8320</span></span><a class="headerlink" href="#pipolars.SummaryType.ALL_FOR_NON_NUMERIC" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pipolars.SummaryType.__new__">
+<span class="sig-name descname"><span class="pre">__new__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pipolars.SummaryType.__new__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<p>Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pipolars</span><span class="w"> </span><span class="kn">import</span> <span class="n">SummaryType</span>
+
+<span class="c1"># Single summary type</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">summary</span><span class="p">(</span><span class="s2">&quot;TAG&quot;</span><span class="p">,</span> <span class="s2">&quot;*-1d&quot;</span><span class="p">,</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="n">summary_types</span><span class="o">=</span><span class="n">SummaryType</span><span class="o">.</span><span class="n">AVERAGE</span><span class="p">)</span>
+
+<span class="c1"># Multiple summary types</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">summary</span><span class="p">(</span>
+    <span class="s2">&quot;TAG&quot;</span><span class="p">,</span> <span class="s2">&quot;*-1d&quot;</span><span class="p">,</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span>
+    <span class="n">summary_types</span><span class="o">=</span><span class="p">[</span>
+        <span class="n">SummaryType</span><span class="o">.</span><span class="n">AVERAGE</span><span class="p">,</span>
+        <span class="n">SummaryType</span><span class="o">.</span><span class="n">MINIMUM</span><span class="p">,</span>
+        <span class="n">SummaryType</span><span class="o">.</span><span class="n">MAXIMUM</span><span class="p">,</span>
+        <span class="n">SummaryType</span><span class="o">.</span><span class="n">STD_DEV</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="timestampmode">
+<h3>TimestampMode<a class="headerlink" href="#timestampmode" title="Link to this heading">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="pipolars.TimestampMode">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pipolars.</span></span><span class="sig-name descname"><span class="pre">TimestampMode</span></span><a class="reference internal" href="../_modules/pipolars/core/types.html#TimestampMode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipolars.TimestampMode" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.Enum" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a></p>
+<p>Timestamp handling modes for summary calculations.</p>
+<p>Timestamp handling modes for summary calculations.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.TimestampMode.AUTO">
+<span class="sig-name descname"><span class="pre">AUTO</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&quot;auto&quot;</span></span><a class="headerlink" href="#pipolars.TimestampMode.AUTO" title="Link to this definition">¶</a></dt>
+<dd><p>Automatically determine timestamp placement.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.TimestampMode.START">
+<span class="sig-name descname"><span class="pre">START</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&quot;start&quot;</span></span><a class="headerlink" href="#pipolars.TimestampMode.START" title="Link to this definition">¶</a></dt>
+<dd><p>Use interval start time.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.TimestampMode.END">
+<span class="sig-name descname"><span class="pre">END</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&quot;end&quot;</span></span><a class="headerlink" href="#pipolars.TimestampMode.END" title="Link to this definition">¶</a></dt>
+<dd><p>Use interval end time.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.TimestampMode.MIDDLE">
+<span class="sig-name descname"><span class="pre">MIDDLE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&quot;middle&quot;</span></span><a class="headerlink" href="#pipolars.TimestampMode.MIDDLE" title="Link to this definition">¶</a></dt>
+<dd><p>Use interval midpoint.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id25">
+<span class="sig-name descname"><span class="pre">AUTO</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'auto'</span></span><a class="headerlink" href="#id25" title="Link to this definition">¶</a></dt>
+<dd><p>Automatically determine timestamp placement.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id26">
+<span class="sig-name descname"><span class="pre">START</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'start'</span></span><a class="headerlink" href="#id26" title="Link to this definition">¶</a></dt>
+<dd><p>Use interval start time.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id27">
+<span class="sig-name descname"><span class="pre">END</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'end'</span></span><a class="headerlink" href="#id27" title="Link to this definition">¶</a></dt>
+<dd><p>Use interval end time.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id28">
+<span class="sig-name descname"><span class="pre">MIDDLE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'middle'</span></span><a class="headerlink" href="#id28" title="Link to this definition">¶</a></dt>
+<dd><p>Use interval midpoint.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pipolars.TimestampMode.__new__">
+<span class="sig-name descname"><span class="pre">__new__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pipolars.TimestampMode.__new__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="dataquality">
+<h3>DataQuality<a class="headerlink" href="#dataquality" title="Link to this heading">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="pipolars.DataQuality">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pipolars.</span></span><span class="sig-name descname"><span class="pre">DataQuality</span></span><a class="reference internal" href="../_modules/pipolars/core/types.html#DataQuality"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipolars.DataQuality" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.IntEnum" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntEnum</span></code></a></p>
+<p>PI data quality flags.</p>
+<p>These flags indicate the quality and reliability of PI values.</p>
+<p>PI data quality flags.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.DataQuality.GOOD">
+<span class="sig-name descname"><span class="pre">GOOD</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></span><a class="headerlink" href="#pipolars.DataQuality.GOOD" title="Link to this definition">¶</a></dt>
+<dd><p>Value is good and reliable.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.DataQuality.SUBSTITUTED">
+<span class="sig-name descname"><span class="pre">SUBSTITUTED</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></span><a class="headerlink" href="#pipolars.DataQuality.SUBSTITUTED" title="Link to this definition">¶</a></dt>
+<dd><p>Value was manually substituted.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.DataQuality.QUESTIONABLE">
+<span class="sig-name descname"><span class="pre">QUESTIONABLE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></span><a class="headerlink" href="#pipolars.DataQuality.QUESTIONABLE" title="Link to this definition">¶</a></dt>
+<dd><p>Value quality is questionable.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.DataQuality.BAD">
+<span class="sig-name descname"><span class="pre">BAD</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></span><a class="headerlink" href="#pipolars.DataQuality.BAD" title="Link to this definition">¶</a></dt>
+<dd><p>Value is bad or unreliable.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.DataQuality.NO_DATA">
+<span class="sig-name descname"><span class="pre">NO_DATA</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></span><a class="headerlink" href="#pipolars.DataQuality.NO_DATA" title="Link to this definition">¶</a></dt>
+<dd><p>No data available for the requested time.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.DataQuality.CALC_FAILED">
+<span class="sig-name descname"><span class="pre">CALC_FAILED</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></span><a class="headerlink" href="#pipolars.DataQuality.CALC_FAILED" title="Link to this definition">¶</a></dt>
+<dd><p>Calculation failed to produce a value.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id29">
+<span class="sig-name descname"><span class="pre">GOOD</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></span><a class="headerlink" href="#id29" title="Link to this definition">¶</a></dt>
+<dd><p>Value is good and reliable.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id30">
+<span class="sig-name descname"><span class="pre">SUBSTITUTED</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></span><a class="headerlink" href="#id30" title="Link to this definition">¶</a></dt>
+<dd><p>Value was manually substituted.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id31">
+<span class="sig-name descname"><span class="pre">QUESTIONABLE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></span><a class="headerlink" href="#id31" title="Link to this definition">¶</a></dt>
+<dd><p>Value quality is questionable.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id32">
+<span class="sig-name descname"><span class="pre">BAD</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></span><a class="headerlink" href="#id32" title="Link to this definition">¶</a></dt>
+<dd><p>Value is bad or unreliable.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id33">
+<span class="sig-name descname"><span class="pre">NO_DATA</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></span><a class="headerlink" href="#id33" title="Link to this definition">¶</a></dt>
+<dd><p>No data available for the requested time.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id34">
+<span class="sig-name descname"><span class="pre">CALC_FAILED</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></span><a class="headerlink" href="#id34" title="Link to this definition">¶</a></dt>
+<dd><p>Calculation failed to produce a value.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pipolars.DataQuality.__new__">
+<span class="sig-name descname"><span class="pre">__new__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pipolars.DataQuality.__new__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="digitalstate">
+<h3>DigitalState<a class="headerlink" href="#digitalstate" title="Link to this heading">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="pipolars.core.types.DigitalState">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pipolars.core.types.</span></span><span class="sig-name descname"><span class="pre">DigitalState</span></span><a class="reference internal" href="../_modules/pipolars/core/types.html#DigitalState"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipolars.core.types.DigitalState" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.Enum" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a></p>
+<p>Common PI digital states.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.core.types.DigitalState.NO_DATA">
+<span class="sig-name descname"><span class="pre">NO_DATA</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'No</span> <span class="pre">Data'</span></span><a class="headerlink" href="#pipolars.core.types.DigitalState.NO_DATA" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.core.types.DigitalState.BAD_INPUT">
+<span class="sig-name descname"><span class="pre">BAD_INPUT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Bad</span> <span class="pre">Input'</span></span><a class="headerlink" href="#pipolars.core.types.DigitalState.BAD_INPUT" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.core.types.DigitalState.CALC_OFF">
+<span class="sig-name descname"><span class="pre">CALC_OFF</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Calc</span> <span class="pre">Off'</span></span><a class="headerlink" href="#pipolars.core.types.DigitalState.CALC_OFF" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.core.types.DigitalState.COMM_FAIL">
+<span class="sig-name descname"><span class="pre">COMM_FAIL</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Comm</span> <span class="pre">Fail'</span></span><a class="headerlink" href="#pipolars.core.types.DigitalState.COMM_FAIL" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.core.types.DigitalState.CONFIGURE">
+<span class="sig-name descname"><span class="pre">CONFIGURE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Configure'</span></span><a class="headerlink" href="#pipolars.core.types.DigitalState.CONFIGURE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.core.types.DigitalState.I_O_TIMEOUT">
+<span class="sig-name descname"><span class="pre">I_O_TIMEOUT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'I/O</span> <span class="pre">Timeout'</span></span><a class="headerlink" href="#pipolars.core.types.DigitalState.I_O_TIMEOUT" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.core.types.DigitalState.NO_SAMPLE">
+<span class="sig-name descname"><span class="pre">NO_SAMPLE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'No</span> <span class="pre">Sample'</span></span><a class="headerlink" href="#pipolars.core.types.DigitalState.NO_SAMPLE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.core.types.DigitalState.SHUTDOWN">
+<span class="sig-name descname"><span class="pre">SHUTDOWN</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Shutdown'</span></span><a class="headerlink" href="#pipolars.core.types.DigitalState.SHUTDOWN" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.core.types.DigitalState.SCAN_OFF">
+<span class="sig-name descname"><span class="pre">SCAN_OFF</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Scan</span> <span class="pre">Off'</span></span><a class="headerlink" href="#pipolars.core.types.DigitalState.SCAN_OFF" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.core.types.DigitalState.OVER_RANGE">
+<span class="sig-name descname"><span class="pre">OVER_RANGE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Over</span> <span class="pre">Range'</span></span><a class="headerlink" href="#pipolars.core.types.DigitalState.OVER_RANGE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.core.types.DigitalState.UNDER_RANGE">
+<span class="sig-name descname"><span class="pre">UNDER_RANGE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Under</span> <span class="pre">Range'</span></span><a class="headerlink" href="#pipolars.core.types.DigitalState.UNDER_RANGE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pipolars.core.types.DigitalState.__new__">
+<span class="sig-name descname"><span class="pre">__new__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pipolars.core.types.DigitalState.__new__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="pointtype">
+<h3>PointType<a class="headerlink" href="#pointtype" title="Link to this heading">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="pipolars.core.types.PointType">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pipolars.core.types.</span></span><span class="sig-name descname"><span class="pre">PointType</span></span><a class="reference internal" href="../_modules/pipolars/core/types.html#PointType"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipolars.core.types.PointType" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.Enum" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a></p>
+<p>PI Point data types.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.core.types.PointType.FLOAT16">
+<span class="sig-name descname"><span class="pre">FLOAT16</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'float16'</span></span><a class="headerlink" href="#pipolars.core.types.PointType.FLOAT16" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.core.types.PointType.FLOAT32">
+<span class="sig-name descname"><span class="pre">FLOAT32</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'float32'</span></span><a class="headerlink" href="#pipolars.core.types.PointType.FLOAT32" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.core.types.PointType.FLOAT64">
+<span class="sig-name descname"><span class="pre">FLOAT64</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'float64'</span></span><a class="headerlink" href="#pipolars.core.types.PointType.FLOAT64" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.core.types.PointType.INT16">
+<span class="sig-name descname"><span class="pre">INT16</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'int16'</span></span><a class="headerlink" href="#pipolars.core.types.PointType.INT16" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.core.types.PointType.INT32">
+<span class="sig-name descname"><span class="pre">INT32</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'int32'</span></span><a class="headerlink" href="#pipolars.core.types.PointType.INT32" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.core.types.PointType.DIGITAL">
+<span class="sig-name descname"><span class="pre">DIGITAL</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'digital'</span></span><a class="headerlink" href="#pipolars.core.types.PointType.DIGITAL" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.core.types.PointType.TIMESTAMP">
+<span class="sig-name descname"><span class="pre">TIMESTAMP</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'timestamp'</span></span><a class="headerlink" href="#pipolars.core.types.PointType.TIMESTAMP" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.core.types.PointType.STRING">
+<span class="sig-name descname"><span class="pre">STRING</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'string'</span></span><a class="headerlink" href="#pipolars.core.types.PointType.STRING" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.core.types.PointType.BLOB">
+<span class="sig-name descname"><span class="pre">BLOB</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'blob'</span></span><a class="headerlink" href="#pipolars.core.types.PointType.BLOB" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pipolars.core.types.PointType.__new__">
+<span class="sig-name descname"><span class="pre">__new__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pipolars.core.types.PointType.__new__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="boundarytype">
+<h3>BoundaryType<a class="headerlink" href="#boundarytype" title="Link to this heading">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="pipolars.core.types.BoundaryType">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pipolars.core.types.</span></span><span class="sig-name descname"><span class="pre">BoundaryType</span></span><a class="reference internal" href="../_modules/pipolars/core/types.html#BoundaryType"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pipolars.core.types.BoundaryType" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.Enum" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a></p>
+<p>Boundary handling for time range queries.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.core.types.BoundaryType.INSIDE">
+<span class="sig-name descname"><span class="pre">INSIDE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'inside'</span></span><a class="headerlink" href="#pipolars.core.types.BoundaryType.INSIDE" title="Link to this definition">¶</a></dt>
+<dd><p>Only include values strictly inside the time range.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.core.types.BoundaryType.OUTSIDE">
+<span class="sig-name descname"><span class="pre">OUTSIDE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'outside'</span></span><a class="headerlink" href="#pipolars.core.types.BoundaryType.OUTSIDE" title="Link to this definition">¶</a></dt>
+<dd><p>Include boundary values outside the range.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pipolars.core.types.BoundaryType.INTERPOLATED">
+<span class="sig-name descname"><span class="pre">INTERPOLATED</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'interpolated'</span></span><a class="headerlink" href="#pipolars.core.types.BoundaryType.INTERPOLATED" title="Link to this definition">¶</a></dt>
+<dd><p>Interpolate values at boundaries.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pipolars.core.types.BoundaryType.__new__">
+<span class="sig-name descname"><span class="pre">__new__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pipolars.core.types.BoundaryType.__new__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+<section id="schema-definitions">
+<h2>Schema Definitions<a class="headerlink" href="#schema-definitions" title="Link to this heading">¶</a></h2>
+<p>PIPolars defines Polars schemas for consistent DataFrame structures:</p>
+<dl class="py data">
+<dt class="sig sig-object py" id="pipolars.core.types.PI_VALUE_SCHEMA">
+<span class="sig-prename descclassname"><span class="pre">pipolars.core.types.</span></span><span class="sig-name descname"><span class="pre">PI_VALUE_SCHEMA</span></span><a class="headerlink" href="#pipolars.core.types.PI_VALUE_SCHEMA" title="Link to this definition">¶</a></dt>
+<dd><p>Schema for single-tag value DataFrames:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Datetime</span><span class="p">(</span><span class="s2">&quot;us&quot;</span><span class="p">,</span> <span class="s2">&quot;UTC&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Float64</span><span class="p">(),</span>
+    <span class="s2">&quot;quality&quot;</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Int8</span><span class="p">(),</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pipolars.core.types.PI_VALUE_WITH_TAG_SCHEMA">
+<span class="sig-prename descclassname"><span class="pre">pipolars.core.types.</span></span><span class="sig-name descname"><span class="pre">PI_VALUE_WITH_TAG_SCHEMA</span></span><a class="headerlink" href="#pipolars.core.types.PI_VALUE_WITH_TAG_SCHEMA" title="Link to this definition">¶</a></dt>
+<dd><p>Schema for multi-tag value DataFrames:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;tag&quot;</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Utf8</span><span class="p">(),</span>
+    <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Datetime</span><span class="p">(</span><span class="s2">&quot;us&quot;</span><span class="p">,</span> <span class="s2">&quot;UTC&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Float64</span><span class="p">(),</span>
+    <span class="s2">&quot;quality&quot;</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Int8</span><span class="p">(),</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="pipolars.core.types.SUMMARY_SCHEMA">
+<span class="sig-prename descclassname"><span class="pre">pipolars.core.types.</span></span><span class="sig-name descname"><span class="pre">SUMMARY_SCHEMA</span></span><a class="headerlink" href="#pipolars.core.types.SUMMARY_SCHEMA" title="Link to this definition">¶</a></dt>
+<dd><p>Schema for summary DataFrames:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;tag&quot;</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Utf8</span><span class="p">(),</span>
+    <span class="s2">&quot;start&quot;</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Datetime</span><span class="p">(</span><span class="s2">&quot;us&quot;</span><span class="p">,</span> <span class="s2">&quot;UTC&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;end&quot;</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Datetime</span><span class="p">(</span><span class="s2">&quot;us&quot;</span><span class="p">,</span> <span class="s2">&quot;UTC&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;average&quot;</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Float64</span><span class="p">(),</span>
+    <span class="s2">&quot;minimum&quot;</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Float64</span><span class="p">(),</span>
+    <span class="s2">&quot;maximum&quot;</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Float64</span><span class="p">(),</span>
+    <span class="s2">&quot;total&quot;</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Float64</span><span class="p">(),</span>
+    <span class="s2">&quot;count&quot;</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Int64</span><span class="p">(),</span>
+    <span class="s2">&quot;std_dev&quot;</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Float64</span><span class="p">(),</span>
+    <span class="s2">&quot;percent_good&quot;</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Float64</span><span class="p">(),</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="../user_guide/time_expressions.html"><span class="doc">Time Expressions</span></a> - Time expression guide</p></li>
+<li><p><a class="reference internal" href="../user_guide/dataframes.html"><span class="doc">Working with Polars DataFrames</span></a> - DataFrame output guide</p></li>
+</ul>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="config.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Configuration</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="query.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">PIQuery</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2025, PIPolars Contributors
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            <div class="icons">
+              <a class="muted-link " href="https://github.com/pipolars/pipolars" aria-label="GitHub">
+                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
+                </svg>
+            </a>
+              
+            </div>
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Types</a><ul>
+<li><a class="reference internal" href="#type-aliases">Type Aliases</a><ul>
+<li><a class="reference internal" href="#pipolars.core.types.PITimestamp"><code class="docutils literal notranslate"><span class="pre">PITimestamp</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.core.types.TagName"><code class="docutils literal notranslate"><span class="pre">TagName</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.core.types.TagPath"><code class="docutils literal notranslate"><span class="pre">TagPath</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#aftime-class">AFTime Class</a><ul>
+<li><a class="reference internal" href="#pipolars.AFTime"><code class="docutils literal notranslate"><span class="pre">AFTime</span></code></a><ul>
+<li><a class="reference internal" href="#pipolars.AFTime.now"><code class="docutils literal notranslate"><span class="pre">AFTime.now()</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.AFTime.today"><code class="docutils literal notranslate"><span class="pre">AFTime.today()</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.AFTime.yesterday"><code class="docutils literal notranslate"><span class="pre">AFTime.yesterday()</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.AFTime.ago"><code class="docutils literal notranslate"><span class="pre">AFTime.ago()</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.AFTime.from_datetime"><code class="docutils literal notranslate"><span class="pre">AFTime.from_datetime()</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.AFTime.expression"><code class="docutils literal notranslate"><span class="pre">AFTime.expression</span></code></a></li>
+<li><a class="reference internal" href="#id0"><code class="docutils literal notranslate"><span class="pre">AFTime.now()</span></code></a></li>
+<li><a class="reference internal" href="#id3"><code class="docutils literal notranslate"><span class="pre">AFTime.today()</span></code></a></li>
+<li><a class="reference internal" href="#id4"><code class="docutils literal notranslate"><span class="pre">AFTime.yesterday()</span></code></a></li>
+<li><a class="reference internal" href="#id5"><code class="docutils literal notranslate"><span class="pre">AFTime.ago()</span></code></a></li>
+<li><a class="reference internal" href="#id6"><code class="docutils literal notranslate"><span class="pre">AFTime.from_datetime()</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.AFTime.__init__"><code class="docutils literal notranslate"><span class="pre">AFTime.__init__()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#pivalue-class">PIValue Class</a><ul>
+<li><a class="reference internal" href="#pipolars.PIValue"><code class="docutils literal notranslate"><span class="pre">PIValue</span></code></a><ul>
+<li><a class="reference internal" href="#pipolars.PIValue.timestamp"><code class="docutils literal notranslate"><span class="pre">PIValue.timestamp</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.PIValue.value"><code class="docutils literal notranslate"><span class="pre">PIValue.value</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.PIValue.quality"><code class="docutils literal notranslate"><span class="pre">PIValue.quality</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.PIValue.is_good"><code class="docutils literal notranslate"><span class="pre">PIValue.is_good</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.PIValue.to_dict"><code class="docutils literal notranslate"><span class="pre">PIValue.to_dict()</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.PIValue.__init__"><code class="docutils literal notranslate"><span class="pre">PIValue.__init__()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#timerange-class">TimeRange Class</a><ul>
+<li><a class="reference internal" href="#pipolars.core.types.TimeRange"><code class="docutils literal notranslate"><span class="pre">TimeRange</span></code></a><ul>
+<li><a class="reference internal" href="#pipolars.core.types.TimeRange.start"><code class="docutils literal notranslate"><span class="pre">TimeRange.start</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.core.types.TimeRange.end"><code class="docutils literal notranslate"><span class="pre">TimeRange.end</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.core.types.TimeRange.last"><code class="docutils literal notranslate"><span class="pre">TimeRange.last()</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.core.types.TimeRange.today"><code class="docutils literal notranslate"><span class="pre">TimeRange.today()</span></code></a></li>
+<li><a class="reference internal" href="#id7"><code class="docutils literal notranslate"><span class="pre">TimeRange.start</span></code></a></li>
+<li><a class="reference internal" href="#id8"><code class="docutils literal notranslate"><span class="pre">TimeRange.end</span></code></a></li>
+<li><a class="reference internal" href="#id9"><code class="docutils literal notranslate"><span class="pre">TimeRange.last()</span></code></a></li>
+<li><a class="reference internal" href="#id10"><code class="docutils literal notranslate"><span class="pre">TimeRange.today()</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.core.types.TimeRange.__init__"><code class="docutils literal notranslate"><span class="pre">TimeRange.__init__()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#pointconfig-class">PointConfig Class</a><ul>
+<li><a class="reference internal" href="#pipolars.core.types.PointConfig"><code class="docutils literal notranslate"><span class="pre">PointConfig</span></code></a><ul>
+<li><a class="reference internal" href="#pipolars.core.types.PointConfig.name"><code class="docutils literal notranslate"><span class="pre">PointConfig.name</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.core.types.PointConfig.__init__"><code class="docutils literal notranslate"><span class="pre">PointConfig.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.core.types.PointConfig.point_id"><code class="docutils literal notranslate"><span class="pre">PointConfig.point_id</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.core.types.PointConfig.point_type"><code class="docutils literal notranslate"><span class="pre">PointConfig.point_type</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.core.types.PointConfig.description"><code class="docutils literal notranslate"><span class="pre">PointConfig.description</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.core.types.PointConfig.engineering_units"><code class="docutils literal notranslate"><span class="pre">PointConfig.engineering_units</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.core.types.PointConfig.zero"><code class="docutils literal notranslate"><span class="pre">PointConfig.zero</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.core.types.PointConfig.span"><code class="docutils literal notranslate"><span class="pre">PointConfig.span</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.core.types.PointConfig.display_digits"><code class="docutils literal notranslate"><span class="pre">PointConfig.display_digits</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.core.types.PointConfig.typical_value"><code class="docutils literal notranslate"><span class="pre">PointConfig.typical_value</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#summaryresult-class">SummaryResult Class</a><ul>
+<li><a class="reference internal" href="#pipolars.core.types.SummaryResult"><code class="docutils literal notranslate"><span class="pre">SummaryResult</span></code></a><ul>
+<li><a class="reference internal" href="#pipolars.core.types.SummaryResult.__init__"><code class="docutils literal notranslate"><span class="pre">SummaryResult.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.core.types.SummaryResult.tag"><code class="docutils literal notranslate"><span class="pre">SummaryResult.tag</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.core.types.SummaryResult.start"><code class="docutils literal notranslate"><span class="pre">SummaryResult.start</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.core.types.SummaryResult.end"><code class="docutils literal notranslate"><span class="pre">SummaryResult.end</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.core.types.SummaryResult.average"><code class="docutils literal notranslate"><span class="pre">SummaryResult.average</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.core.types.SummaryResult.minimum"><code class="docutils literal notranslate"><span class="pre">SummaryResult.minimum</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.core.types.SummaryResult.maximum"><code class="docutils literal notranslate"><span class="pre">SummaryResult.maximum</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.core.types.SummaryResult.total"><code class="docutils literal notranslate"><span class="pre">SummaryResult.total</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.core.types.SummaryResult.count"><code class="docutils literal notranslate"><span class="pre">SummaryResult.count</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.core.types.SummaryResult.std_dev"><code class="docutils literal notranslate"><span class="pre">SummaryResult.std_dev</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.core.types.SummaryResult.range"><code class="docutils literal notranslate"><span class="pre">SummaryResult.range</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.core.types.SummaryResult.percent_good"><code class="docutils literal notranslate"><span class="pre">SummaryResult.percent_good</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#enumerations">Enumerations</a><ul>
+<li><a class="reference internal" href="#retrievalmode">RetrievalMode</a><ul>
+<li><a class="reference internal" href="#pipolars.RetrievalMode"><code class="docutils literal notranslate"><span class="pre">RetrievalMode</span></code></a><ul>
+<li><a class="reference internal" href="#pipolars.RetrievalMode.RECORDED"><code class="docutils literal notranslate"><span class="pre">RetrievalMode.RECORDED</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.RetrievalMode.INTERPOLATED"><code class="docutils literal notranslate"><span class="pre">RetrievalMode.INTERPOLATED</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.RetrievalMode.PLOT"><code class="docutils literal notranslate"><span class="pre">RetrievalMode.PLOT</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.RetrievalMode.SUMMARY"><code class="docutils literal notranslate"><span class="pre">RetrievalMode.SUMMARY</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.RetrievalMode.COMPRESSED"><code class="docutils literal notranslate"><span class="pre">RetrievalMode.COMPRESSED</span></code></a></li>
+<li><a class="reference internal" href="#id11"><code class="docutils literal notranslate"><span class="pre">RetrievalMode.RECORDED</span></code></a></li>
+<li><a class="reference internal" href="#id12"><code class="docutils literal notranslate"><span class="pre">RetrievalMode.INTERPOLATED</span></code></a></li>
+<li><a class="reference internal" href="#id13"><code class="docutils literal notranslate"><span class="pre">RetrievalMode.PLOT</span></code></a></li>
+<li><a class="reference internal" href="#id14"><code class="docutils literal notranslate"><span class="pre">RetrievalMode.SUMMARY</span></code></a></li>
+<li><a class="reference internal" href="#id15"><code class="docutils literal notranslate"><span class="pre">RetrievalMode.COMPRESSED</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.RetrievalMode.__new__"><code class="docutils literal notranslate"><span class="pre">RetrievalMode.__new__()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#summarytype">SummaryType</a><ul>
+<li><a class="reference internal" href="#pipolars.SummaryType"><code class="docutils literal notranslate"><span class="pre">SummaryType</span></code></a><ul>
+<li><a class="reference internal" href="#pipolars.SummaryType.TOTAL"><code class="docutils literal notranslate"><span class="pre">SummaryType.TOTAL</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.SummaryType.AVERAGE"><code class="docutils literal notranslate"><span class="pre">SummaryType.AVERAGE</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.SummaryType.MINIMUM"><code class="docutils literal notranslate"><span class="pre">SummaryType.MINIMUM</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.SummaryType.MAXIMUM"><code class="docutils literal notranslate"><span class="pre">SummaryType.MAXIMUM</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.SummaryType.RANGE"><code class="docutils literal notranslate"><span class="pre">SummaryType.RANGE</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.SummaryType.STD_DEV"><code class="docutils literal notranslate"><span class="pre">SummaryType.STD_DEV</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.SummaryType.POP_STD_DEV"><code class="docutils literal notranslate"><span class="pre">SummaryType.POP_STD_DEV</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.SummaryType.COUNT"><code class="docutils literal notranslate"><span class="pre">SummaryType.COUNT</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.SummaryType.PERCENT_GOOD"><code class="docutils literal notranslate"><span class="pre">SummaryType.PERCENT_GOOD</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.SummaryType.NONE"><code class="docutils literal notranslate"><span class="pre">SummaryType.NONE</span></code></a></li>
+<li><a class="reference internal" href="#id16"><code class="docutils literal notranslate"><span class="pre">SummaryType.TOTAL</span></code></a></li>
+<li><a class="reference internal" href="#id17"><code class="docutils literal notranslate"><span class="pre">SummaryType.AVERAGE</span></code></a></li>
+<li><a class="reference internal" href="#id18"><code class="docutils literal notranslate"><span class="pre">SummaryType.MINIMUM</span></code></a></li>
+<li><a class="reference internal" href="#id19"><code class="docutils literal notranslate"><span class="pre">SummaryType.MAXIMUM</span></code></a></li>
+<li><a class="reference internal" href="#id20"><code class="docutils literal notranslate"><span class="pre">SummaryType.RANGE</span></code></a></li>
+<li><a class="reference internal" href="#id21"><code class="docutils literal notranslate"><span class="pre">SummaryType.STD_DEV</span></code></a></li>
+<li><a class="reference internal" href="#id22"><code class="docutils literal notranslate"><span class="pre">SummaryType.POP_STD_DEV</span></code></a></li>
+<li><a class="reference internal" href="#id23"><code class="docutils literal notranslate"><span class="pre">SummaryType.COUNT</span></code></a></li>
+<li><a class="reference internal" href="#id24"><code class="docutils literal notranslate"><span class="pre">SummaryType.PERCENT_GOOD</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.SummaryType.TOTAL_WITH_UOM"><code class="docutils literal notranslate"><span class="pre">SummaryType.TOTAL_WITH_UOM</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.SummaryType.ALL"><code class="docutils literal notranslate"><span class="pre">SummaryType.ALL</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.SummaryType.ALL_FOR_NON_NUMERIC"><code class="docutils literal notranslate"><span class="pre">SummaryType.ALL_FOR_NON_NUMERIC</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.SummaryType.__new__"><code class="docutils literal notranslate"><span class="pre">SummaryType.__new__()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#timestampmode">TimestampMode</a><ul>
+<li><a class="reference internal" href="#pipolars.TimestampMode"><code class="docutils literal notranslate"><span class="pre">TimestampMode</span></code></a><ul>
+<li><a class="reference internal" href="#pipolars.TimestampMode.AUTO"><code class="docutils literal notranslate"><span class="pre">TimestampMode.AUTO</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.TimestampMode.START"><code class="docutils literal notranslate"><span class="pre">TimestampMode.START</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.TimestampMode.END"><code class="docutils literal notranslate"><span class="pre">TimestampMode.END</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.TimestampMode.MIDDLE"><code class="docutils literal notranslate"><span class="pre">TimestampMode.MIDDLE</span></code></a></li>
+<li><a class="reference internal" href="#id25"><code class="docutils literal notranslate"><span class="pre">TimestampMode.AUTO</span></code></a></li>
+<li><a class="reference internal" href="#id26"><code class="docutils literal notranslate"><span class="pre">TimestampMode.START</span></code></a></li>
+<li><a class="reference internal" href="#id27"><code class="docutils literal notranslate"><span class="pre">TimestampMode.END</span></code></a></li>
+<li><a class="reference internal" href="#id28"><code class="docutils literal notranslate"><span class="pre">TimestampMode.MIDDLE</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.TimestampMode.__new__"><code class="docutils literal notranslate"><span class="pre">TimestampMode.__new__()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#dataquality">DataQuality</a><ul>
+<li><a class="reference internal" href="#pipolars.DataQuality"><code class="docutils literal notranslate"><span class="pre">DataQuality</span></code></a><ul>
+<li><a class="reference internal" href="#pipolars.DataQuality.GOOD"><code class="docutils literal notranslate"><span class="pre">DataQuality.GOOD</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.DataQuality.SUBSTITUTED"><code class="docutils literal notranslate"><span class="pre">DataQuality.SUBSTITUTED</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.DataQuality.QUESTIONABLE"><code class="docutils literal notranslate"><span class="pre">DataQuality.QUESTIONABLE</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.DataQuality.BAD"><code class="docutils literal notranslate"><span class="pre">DataQuality.BAD</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.DataQuality.NO_DATA"><code class="docutils literal notranslate"><span class="pre">DataQuality.NO_DATA</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.DataQuality.CALC_FAILED"><code class="docutils literal notranslate"><span class="pre">DataQuality.CALC_FAILED</span></code></a></li>
+<li><a class="reference internal" href="#id29"><code class="docutils literal notranslate"><span class="pre">DataQuality.GOOD</span></code></a></li>
+<li><a class="reference internal" href="#id30"><code class="docutils literal notranslate"><span class="pre">DataQuality.SUBSTITUTED</span></code></a></li>
+<li><a class="reference internal" href="#id31"><code class="docutils literal notranslate"><span class="pre">DataQuality.QUESTIONABLE</span></code></a></li>
+<li><a class="reference internal" href="#id32"><code class="docutils literal notranslate"><span class="pre">DataQuality.BAD</span></code></a></li>
+<li><a class="reference internal" href="#id33"><code class="docutils literal notranslate"><span class="pre">DataQuality.NO_DATA</span></code></a></li>
+<li><a class="reference internal" href="#id34"><code class="docutils literal notranslate"><span class="pre">DataQuality.CALC_FAILED</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.DataQuality.__new__"><code class="docutils literal notranslate"><span class="pre">DataQuality.__new__()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#digitalstate">DigitalState</a><ul>
+<li><a class="reference internal" href="#pipolars.core.types.DigitalState"><code class="docutils literal notranslate"><span class="pre">DigitalState</span></code></a><ul>
+<li><a class="reference internal" href="#pipolars.core.types.DigitalState.NO_DATA"><code class="docutils literal notranslate"><span class="pre">DigitalState.NO_DATA</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.core.types.DigitalState.BAD_INPUT"><code class="docutils literal notranslate"><span class="pre">DigitalState.BAD_INPUT</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.core.types.DigitalState.CALC_OFF"><code class="docutils literal notranslate"><span class="pre">DigitalState.CALC_OFF</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.core.types.DigitalState.COMM_FAIL"><code class="docutils literal notranslate"><span class="pre">DigitalState.COMM_FAIL</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.core.types.DigitalState.CONFIGURE"><code class="docutils literal notranslate"><span class="pre">DigitalState.CONFIGURE</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.core.types.DigitalState.I_O_TIMEOUT"><code class="docutils literal notranslate"><span class="pre">DigitalState.I_O_TIMEOUT</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.core.types.DigitalState.NO_SAMPLE"><code class="docutils literal notranslate"><span class="pre">DigitalState.NO_SAMPLE</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.core.types.DigitalState.SHUTDOWN"><code class="docutils literal notranslate"><span class="pre">DigitalState.SHUTDOWN</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.core.types.DigitalState.SCAN_OFF"><code class="docutils literal notranslate"><span class="pre">DigitalState.SCAN_OFF</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.core.types.DigitalState.OVER_RANGE"><code class="docutils literal notranslate"><span class="pre">DigitalState.OVER_RANGE</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.core.types.DigitalState.UNDER_RANGE"><code class="docutils literal notranslate"><span class="pre">DigitalState.UNDER_RANGE</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.core.types.DigitalState.__new__"><code class="docutils literal notranslate"><span class="pre">DigitalState.__new__()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#pointtype">PointType</a><ul>
+<li><a class="reference internal" href="#pipolars.core.types.PointType"><code class="docutils literal notranslate"><span class="pre">PointType</span></code></a><ul>
+<li><a class="reference internal" href="#pipolars.core.types.PointType.FLOAT16"><code class="docutils literal notranslate"><span class="pre">PointType.FLOAT16</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.core.types.PointType.FLOAT32"><code class="docutils literal notranslate"><span class="pre">PointType.FLOAT32</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.core.types.PointType.FLOAT64"><code class="docutils literal notranslate"><span class="pre">PointType.FLOAT64</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.core.types.PointType.INT16"><code class="docutils literal notranslate"><span class="pre">PointType.INT16</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.core.types.PointType.INT32"><code class="docutils literal notranslate"><span class="pre">PointType.INT32</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.core.types.PointType.DIGITAL"><code class="docutils literal notranslate"><span class="pre">PointType.DIGITAL</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.core.types.PointType.TIMESTAMP"><code class="docutils literal notranslate"><span class="pre">PointType.TIMESTAMP</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.core.types.PointType.STRING"><code class="docutils literal notranslate"><span class="pre">PointType.STRING</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.core.types.PointType.BLOB"><code class="docutils literal notranslate"><span class="pre">PointType.BLOB</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.core.types.PointType.__new__"><code class="docutils literal notranslate"><span class="pre">PointType.__new__()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#boundarytype">BoundaryType</a><ul>
+<li><a class="reference internal" href="#pipolars.core.types.BoundaryType"><code class="docutils literal notranslate"><span class="pre">BoundaryType</span></code></a><ul>
+<li><a class="reference internal" href="#pipolars.core.types.BoundaryType.INSIDE"><code class="docutils literal notranslate"><span class="pre">BoundaryType.INSIDE</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.core.types.BoundaryType.OUTSIDE"><code class="docutils literal notranslate"><span class="pre">BoundaryType.OUTSIDE</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.core.types.BoundaryType.INTERPOLATED"><code class="docutils literal notranslate"><span class="pre">BoundaryType.INTERPOLATED</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.core.types.BoundaryType.__new__"><code class="docutils literal notranslate"><span class="pre">BoundaryType.__new__()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#schema-definitions">Schema Definitions</a><ul>
+<li><a class="reference internal" href="#pipolars.core.types.PI_VALUE_SCHEMA"><code class="docutils literal notranslate"><span class="pre">PI_VALUE_SCHEMA</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.core.types.PI_VALUE_WITH_TAG_SCHEMA"><code class="docutils literal notranslate"><span class="pre">PI_VALUE_WITH_TAG_SCHEMA</span></code></a></li>
+<li><a class="reference internal" href="#pipolars.core.types.SUMMARY_SCHEMA"><code class="docutils literal notranslate"><span class="pre">SUMMARY_SCHEMA</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js?v=38b66d78"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/scripts/furo.js?v=46bd48cc"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=30646c52"></script>
+    </body>
+</html>
