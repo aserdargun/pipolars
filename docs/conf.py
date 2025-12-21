@@ -16,8 +16,14 @@ sys.path.insert(0, os.path.abspath("../src"))
 project = "PIPolars"
 copyright = f"{datetime.now().year}, PIPolars Contributors"
 author = "PIPolars Contributors"
-release = "0.1.0"
-version = "0.1.0"
+
+# Import version from package
+try:
+    from pipolars import __version__
+    release = __version__
+except ImportError:
+    release = "0.0.0"
+version = ".".join(release.split(".")[:2])
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration

@@ -14,7 +14,8 @@
       "Bash(mkdir -p:*)",
       "Bash(uv pip install:*)",
       "Bash(git -C \"C:\\\\Users\\\\serdar.gundogdu\\\\OneDrive - Enerjisa Üretim\\\\GOALS\\\\01_PROJECTS\\\\AI-FIRST_2026\\\\pipolars\" log --oneline)",
-      "Bash(git -C \"C:\\\\Users\\\\serdar.gundogdu\\\\OneDrive - Enerjisa Üretim\\\\GOALS\\\\01_PROJECTS\\\\AI-FIRST_2026\\\\pipolars\" remote:*)"
+      "Bash(git -C \"C:\\\\Users\\\\serdar.gundogdu\\\\OneDrive - Enerjisa Üretim\\\\GOALS\\\\01_PROJECTS\\\\AI-FIRST_2026\\\\pipolars\" remote:*)",
+      "Bash(uv build:*)"
     ]
   }
 }

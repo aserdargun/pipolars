@@ -1,6 +1,6 @@
 [project]
 name = "pipolars"
-version = "0.1.0"
+dynamic = ["version"]
 description = "High-performance PI System data extraction library with Polars DataFrames"
 readme = "README.md"
 license = { text = "MIT" }
@@ -57,8 +57,14 @@ Repository = "https://github.com/pipolars/pipolars"
 Issues = "https://github.com/pipolars/pipolars/issues"
 
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling", "hatch-vcs"]
 build-backend = "hatchling.build"
+
+[tool.hatch.version]
+source = "vcs"
+
+[tool.hatch.build.hooks.vcs]
+version-file = "src/pipolars/_version.py"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/pipolars"]
