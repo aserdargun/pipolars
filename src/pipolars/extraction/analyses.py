@@ -6,6 +6,7 @@ from PI Asset Framework.
 
 from __future__ import annotations
 
+import contextlib
 import logging
 from dataclasses import dataclass
 from typing import TYPE_CHECKING, Any
@@ -102,10 +103,8 @@ class AFAnalysisExtractor:
             target_id = str(target.ID) if hasattr(target, "ID") else ""
             target_name = str(target.Name) if hasattr(target, "Name") else ""
             if hasattr(target, "GetPath"):
-                try:
+                with contextlib.suppress(Exception):
                     target_path = str(target.GetPath())
-                except Exception:
-                    pass
 
         # Template information
         template_id = ""
@@ -122,10 +121,8 @@ class AFAnalysisExtractor:
         # Categories
         categories: tuple[str, ...] = ()
         if hasattr(af_analysis, "Categories") and af_analysis.Categories:
-            try:
+            with contextlib.suppress(Exception):
                 categories = tuple(str(c.Name) for c in af_analysis.Categories)
-            except Exception:
-                pass
 
         # Time rule configuration
         time_rule_plugin_id = ""
@@ -142,42 +139,32 @@ class AFAnalysisExtractor:
         if hasattr(af_analysis, "AnalysisRule") and af_analysis.AnalysisRule:
             rule = af_analysis.AnalysisRule
             if hasattr(rule, "MaxQueueSize"):
-                try:
+                with contextlib.suppress(ValueError, TypeError):
                     analysis_rule_max_queue_size = int(rule.MaxQueueSize)
-                except (ValueError, TypeError):
-                    pass
 
         # Group ID
         group_id = ""
         if hasattr(af_analysis, "GroupId"):
-            try:
+            with contextlib.suppress(Exception):
                 group_id = str(af_analysis.GroupId) if af_analysis.GroupId else ""
-            except Exception:
-                pass
 
         # Priority
         priority = None
         if hasattr(af_analysis, "Priority"):
-            try:
+            with contextlib.suppress(ValueError, TypeError):
                 priority = int(af_analysis.Priority)
-            except (ValueError, TypeError):
-                pass
 
         # Maximum queue time
         maximum_queue_time = ""
         if hasattr(af_analysis, "MaximumQueueTime"):
-            try:
+            with contextlib.suppress(Exception):
                 maximum_queue_time = str(af_analysis.MaximumQueueTime) if af_analysis.MaximumQueueTime else ""
-            except Exception:
-                pass
 
         # Auto-created event frame count
         auto_created_event_frame_count = None
         if hasattr(af_analysis, "AutoCreatedEventFrameCount"):
-            try:
+            with contextlib.suppress(ValueError, TypeError):
                 auto_created_event_frame_count = int(af_analysis.AutoCreatedEventFrameCount)
-            except (ValueError, TypeError):
-                pass
 
         # Output attributes
         output_attributes: tuple[str, ...] = ()
@@ -194,18 +181,14 @@ class AFAnalysisExtractor:
         # Is enabled
         is_enabled = False
         if hasattr(af_analysis, "IsEnabled"):
-            try:
+            with contextlib.suppress(Exception):
                 is_enabled = bool(af_analysis.IsEnabled)
-            except Exception:
-                pass
 
         # Get path
         path = ""
         if hasattr(af_analysis, "GetPath"):
-            try:
+            with contextlib.suppress(Exception):
                 path = str(af_analysis.GetPath())
-            except Exception:
-                pass
 
         return AnalysisInfo(
             name=str(af_analysis.Name),
