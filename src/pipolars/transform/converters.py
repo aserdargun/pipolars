@@ -73,29 +73,59 @@ class PIToPolarsConverter:
 
         # Build column lists for efficient DataFrame construction
         timestamps: list[datetime] = []
-        data_values: list[float | None] = []
         qualities: list[int] | None = [] if include_quality else None
 
+        # First pass: determine if we have digital (string) values
+        has_string_values = False
         for pv in values:
-            timestamps.append(pv.timestamp)
-
-            # Handle different value types
-            if isinstance(pv.value, (int, float)):
-                data_values.append(float(pv.value))
-            elif isinstance(pv.value, str):
-                # Try to convert string to float, otherwise use None
+            if isinstance(pv.value, str):
+                # Check if it's a numeric string or a digital state string
                 try:
-                    data_values.append(float(pv.value))
+                    float(pv.value)
                 except (ValueError, TypeError):
-                    data_values.append(None)
-            else:
-                data_values.append(None)
+                    has_string_values = True
+                    break
 
-            if qualities is not None:
-                qualities.append(pv.quality.value)
+        # Second pass: build the values list with appropriate type
+        if has_string_values:
+            # Use string type for digital states
+            data_values: list[str | None] = []
+            for pv in values:
+                timestamps.append(pv.timestamp)
+
+                if pv.value is None:
+                    data_values.append(None)
+                elif isinstance(pv.value, str):
+                    data_values.append(pv.value)
+                else:
+                    # Convert numeric to string for consistency
+                    data_values.append(str(pv.value))
+
+                if qualities is not None:
+                    qualities.append(pv.quality.value)
+        else:
+            # Use float type for numeric values
+            numeric_values: list[float | None] = []
+            for pv in values:
+                timestamps.append(pv.timestamp)
+
+                if isinstance(pv.value, (int, float)):
+                    numeric_values.append(float(pv.value))
+                elif isinstance(pv.value, str):
+                    try:
+                        numeric_values.append(float(pv.value))
+                    except (ValueError, TypeError):
+                        numeric_values.append(None)
+                else:
+                    numeric_values.append(None)
+
+                if qualities is not None:
+                    qualities.append(pv.quality.value)
+
+            data_values = numeric_values  # type: ignore[assignment]
 
         # Build DataFrame
-        data = {
+        data: dict[str, Any] = {
             self._config.timestamp_column: timestamps,
             self._config.value_column: data_values,
         }
@@ -143,32 +173,66 @@ class PIToPolarsConverter:
             include_quality if include_quality is not None else self._config.include_quality
         )
 
+        # First pass: determine if we have digital (string) values
+        has_string_values = False
+        for values in tag_values.values():
+            for pv in values:
+                if isinstance(pv.value, str):
+                    try:
+                        float(pv.value)
+                    except (ValueError, TypeError):
+                        has_string_values = True
+                        break
+            if has_string_values:
+                break
+
         # Collect all data in lists
         all_tags: list[str] = []
         all_timestamps: list[datetime] = []
-        all_values: list[float | None] = []
         all_qualities: list[int] | None = [] if include_quality else None
 
-        for tag_name, values in tag_values.items():
-            for pv in values:
-                all_tags.append(tag_name)
-                all_timestamps.append(pv.timestamp)
+        if has_string_values:
+            # Use string type for digital states
+            all_values: list[str | None] = []
+            for tag_name, values in tag_values.items():
+                for pv in values:
+                    all_tags.append(tag_name)
+                    all_timestamps.append(pv.timestamp)
 
-                if isinstance(pv.value, (int, float)):
-                    all_values.append(float(pv.value))
-                elif isinstance(pv.value, str):
-                    try:
-                        all_values.append(float(pv.value))
-                    except (ValueError, TypeError):
+                    if pv.value is None:
                         all_values.append(None)
-                else:
-                    all_values.append(None)
+                    elif isinstance(pv.value, str):
+                        all_values.append(pv.value)
+                    else:
+                        all_values.append(str(pv.value))
 
-                if all_qualities is not None:
-                    all_qualities.append(pv.quality.value)
+                    if all_qualities is not None:
+                        all_qualities.append(pv.quality.value)
+        else:
+            # Use float type for numeric values
+            numeric_values: list[float | None] = []
+            for tag_name, values in tag_values.items():
+                for pv in values:
+                    all_tags.append(tag_name)
+                    all_timestamps.append(pv.timestamp)
+
+                    if isinstance(pv.value, (int, float)):
+                        numeric_values.append(float(pv.value))
+                    elif isinstance(pv.value, str):
+                        try:
+                            numeric_values.append(float(pv.value))
+                        except (ValueError, TypeError):
+                            numeric_values.append(None)
+                    else:
+                        numeric_values.append(None)
+
+                    if all_qualities is not None:
+                        all_qualities.append(pv.quality.value)
+
+            all_values = numeric_values  # type: ignore[assignment]
 
         # Build DataFrame
-        data = {
+        data: dict[str, Any] = {
             self._config.tag_column: all_tags,
             self._config.timestamp_column: all_timestamps,
             self._config.value_column: all_values,
@@ -283,19 +347,41 @@ class PIToPolarsConverter:
         Returns:
             Polars Series of values
         """
-        data_values: list[float | None] = []
+        # First pass: determine if we have digital (string) values
+        has_string_values = False
         for pv in values:
-            if isinstance(pv.value, (int, float)):
-                data_values.append(float(pv.value))
-            elif isinstance(pv.value, str):
+            if isinstance(pv.value, str):
                 try:
-                    data_values.append(float(pv.value))
+                    float(pv.value)
                 except (ValueError, TypeError):
-                    data_values.append(None)
-            else:
-                data_values.append(None)
+                    has_string_values = True
+                    break
 
-        return pl.Series(name or self._config.value_column, data_values)
+        if has_string_values:
+            # Use string type for digital states
+            string_values: list[str | None] = []
+            for pv in values:
+                if pv.value is None:
+                    string_values.append(None)
+                elif isinstance(pv.value, str):
+                    string_values.append(pv.value)
+                else:
+                    string_values.append(str(pv.value))
+            return pl.Series(name or self._config.value_column, string_values)
+        else:
+            # Use float type for numeric values
+            float_values: list[float | None] = []
+            for pv in values:
+                if isinstance(pv.value, (int, float)):
+                    float_values.append(float(pv.value))
+                elif isinstance(pv.value, str):
+                    try:
+                        float_values.append(float(pv.value))
+                    except (ValueError, TypeError):
+                        float_values.append(None)
+                else:
+                    float_values.append(None)
+            return pl.Series(name or self._config.value_column, float_values)
 
     def to_lazy_frame(
         self,
