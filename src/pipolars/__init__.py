@@ -25,8 +25,11 @@ from pipolars.core.exceptions import (
 )
 from pipolars.core.types import (
     AFTime,
+    AnalysisInfo,
+    AnalysisStatus,
     DataQuality,
     PIValue,
+    PointConfig,
     RetrievalMode,
     SummaryType,
     TimestampMode,
@@ -44,11 +47,14 @@ __all__ = [
     "PIConfig",
     # Types
     "AFTime",
+    "AnalysisInfo",
+    "AnalysisStatus",
+    "DataQuality",
     "PIValue",
+    "PointConfig",
     "RetrievalMode",
     "SummaryType",
     "TimestampMode",
-    "DataQuality",
     # Exceptions
     "PIPolarsError",
     "PIConnectionError",

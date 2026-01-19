@@ -310,6 +310,53 @@ class PointConfig:
     typical_value: float | None = None
     """Typical value for this point."""
 
+    # Alarm thresholds
+    value_high_alarm: float | None = None
+    """High alarm threshold."""
+
+    value_low_alarm: float | None = None
+    """Low alarm threshold."""
+
+    value_high_warning: float | None = None
+    """High warning threshold."""
+
+    value_low_warning: float | None = None
+    """Low warning threshold."""
+
+    # Rate of change limits
+    roc_high_value: float | None = None
+    """Rate of change high limit."""
+
+    roc_low_value: float | None = None
+    """Rate of change low limit."""
+
+    # Interface information
+    interface_id: int | None = None
+    """PI Interface identifier."""
+
+    interface_name: str = ""
+    """PI Interface name."""
+
+    # Scan and source information
+    scan_time: str = ""
+    """Scan interval timing."""
+
+    source_point_id: int | None = None
+    """Source point ID."""
+
+    source_point_name: str = ""
+    """Source point name."""
+
+    # Additional metadata
+    conversion_factor: float | None = None
+    """Conversion constant."""
+
+    device_name: str = ""
+    """Device name."""
+
+    alias: str = ""
+    """Point alias."""
+
 
 @dataclass(frozen=True, slots=True)
 class SummaryResult:
@@ -335,6 +382,103 @@ class SummaryResult:
     std_dev: float | None = None
     range: float | None = None
     percent_good: float | None = None
+
+
+class AnalysisStatus(str, Enum):
+    """Status of an AF Analysis."""
+
+    RUNNING = "Running"
+    """Analysis is actively running."""
+
+    STOPPED = "Stopped"
+    """Analysis is stopped."""
+
+    ERROR = "Error"
+    """Analysis has encountered an error."""
+
+    UNKNOWN = "Unknown"
+    """Status is unknown."""
+
+
+@dataclass(frozen=True, slots=True)
+class AnalysisInfo:
+    """Information about an AF Analysis.
+
+    Contains metadata about an AF Analysis retrieved from the server.
+    """
+
+    name: str
+    """The analysis name."""
+
+    id: str
+    """The analysis GUID."""
+
+    path: str
+    """Full path to the analysis."""
+
+    description: str = ""
+    """Description of the analysis."""
+
+    # Target information
+    target_id: str = ""
+    """GUID of the target element."""
+
+    target_name: str = ""
+    """Name of target element."""
+
+    target_path: str = ""
+    """Full path to the target element."""
+
+    # Template information
+    template_id: str = ""
+    """Template GUID."""
+
+    template_name: str = ""
+    """Template name."""
+
+    template_description: str = ""
+    """Template description."""
+
+    # Status and execution
+    status: AnalysisStatus = AnalysisStatus.UNKNOWN
+    """Current status of the analysis."""
+
+    is_enabled: bool = False
+    """Whether the analysis is enabled."""
+
+    # Categories
+    categories: tuple[str, ...] = ()
+    """List of category names applied to the analysis."""
+
+    # Time rule configuration
+    time_rule_plugin_id: str = ""
+    """ID of the time rule plugin."""
+
+    time_rule_config_string: str = ""
+    """Time rule configuration string."""
+
+    # Analysis rule configuration
+    analysis_rule_max_queue_size: int | None = None
+    """Max queue size configuration."""
+
+    # Grouping and priority
+    group_id: str = ""
+    """Analysis group identifier."""
+
+    priority: int | None = None
+    """Analysis priority level."""
+
+    # Queue and timing
+    maximum_queue_time: str = ""
+    """Maximum queue time setting."""
+
+    # Event frame tracking
+    auto_created_event_frame_count: int | None = None
+    """Count of auto-created event frames."""
+
+    # Output attributes
+    output_attributes: tuple[str, ...] = ()
+    """Names of output attributes from this analysis."""
 
 
 # Polars schema definitions for PI data

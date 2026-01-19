@@ -206,8 +206,9 @@ class PIPointExtractor:
         """
         point = self._connection.get_point(tag_name)
 
-        # Get point attributes
+        # Get point attributes - including additional attributes
         attrs = point.GetAttributes([
+            # Core attributes
             "pointid",
             "pointtype",
             "descriptor",
@@ -216,6 +217,25 @@ class PIPointExtractor:
             "span",
             "displaydigits",
             "typicalvalue",
+            # Alarm thresholds
+            "valuehighalarm",
+            "valuelowalarm",
+            "valuehighwarning",
+            "valuelowwarning",
+            # Rate of change limits
+            "rocinghighvalue",
+            "rocinglowvalue",
+            # Interface information
+            "interfaceid",
+            "interfacename",
+            # Scan and source information
+            "scantime",
+            "srcptid",
+            "srcptname",
+            # Additional metadata
+            "convers",
+            "devname",
+            "alias",
         ])
 
         # Map point type
@@ -234,7 +254,23 @@ class PIPointExtractor:
         point_type_str = str(self._get_attr(attrs, "pointtype", "Float32"))
         point_type = point_type_map.get(point_type_str, PointType.FLOAT64)
 
-        typical_val = self._get_attr(attrs, "typicalvalue")
+        # Helper to safely convert to float
+        def safe_float(val: Any) -> float | None:
+            if val is None:
+                return None
+            try:
+                return float(val)
+            except (ValueError, TypeError):
+                return None
+
+        # Helper to safely convert to int
+        def safe_int(val: Any) -> int | None:
+            if val is None:
+                return None
+            try:
+                return int(val)
+            except (ValueError, TypeError):
+                return None
 
         return PointConfig(
             name=tag_name,
@@ -245,7 +281,26 @@ class PIPointExtractor:
             zero=float(self._get_attr(attrs, "zero", 0.0)),
             span=float(self._get_attr(attrs, "span", 100.0)),
             display_digits=int(self._get_attr(attrs, "displaydigits", -5)),
-            typical_value=float(typical_val) if typical_val is not None else None,
+            typical_value=safe_float(self._get_attr(attrs, "typicalvalue")),
+            # Alarm thresholds
+            value_high_alarm=safe_float(self._get_attr(attrs, "valuehighalarm")),
+            value_low_alarm=safe_float(self._get_attr(attrs, "valuelowalarm")),
+            value_high_warning=safe_float(self._get_attr(attrs, "valuehighwarning")),
+            value_low_warning=safe_float(self._get_attr(attrs, "valuelowwarning")),
+            # Rate of change limits
+            roc_high_value=safe_float(self._get_attr(attrs, "rocinghighvalue")),
+            roc_low_value=safe_float(self._get_attr(attrs, "rocinglowvalue")),
+            # Interface information
+            interface_id=safe_int(self._get_attr(attrs, "interfaceid")),
+            interface_name=str(self._get_attr(attrs, "interfacename", "")),
+            # Scan and source information
+            scan_time=str(self._get_attr(attrs, "scantime", "")),
+            source_point_id=safe_int(self._get_attr(attrs, "srcptid")),
+            source_point_name=str(self._get_attr(attrs, "srcptname", "")),
+            # Additional metadata
+            conversion_factor=safe_float(self._get_attr(attrs, "convers")),
+            device_name=str(self._get_attr(attrs, "devname", "")),
+            alias=str(self._get_attr(attrs, "alias", "")),
         )
 
     def snapshot(self, tag_name: str) -> PIValue:
