@@ -144,6 +144,166 @@ class TestPIToPolarsConverter:
         assert len(df) == len(sample_values)
 
 
+class TestDigitalStateConversion:
+    """Tests for digital state (non-numeric) value conversion."""
+
+    @pytest.fixture
+    def converter(self) -> PIToPolarsConverter:
+        """Create a converter instance."""
+        return PIToPolarsConverter()
+
+    @pytest.fixture
+    def digital_values(self) -> list[PIValue]:
+        """Create sample digital state PIValue objects."""
+        base_time = datetime(2024, 1, 1, 0, 0, 0)
+        states = ["ON", "OFF", "ON", "ON", "OFF", "ON", "OFF", "OFF", "ON", "OFF"]
+        return [
+            PIValue(timestamp=base_time + timedelta(hours=i), value=states[i])
+            for i in range(10)
+        ]
+
+    @pytest.fixture
+    def mixed_digital_values(self) -> list[PIValue]:
+        """Create digital values with various state names."""
+        base_time = datetime(2024, 1, 1, 0, 0, 0)
+        states = ["RUN", "STOP", "IDLE", "RUN", "FAULT", "RUN", "STOP", "IDLE", "RUN", "STOP"]
+        return [
+            PIValue(timestamp=base_time + timedelta(hours=i), value=states[i])
+            for i in range(10)
+        ]
+
+    def test_digital_values_to_dataframe(
+        self,
+        converter: PIToPolarsConverter,
+        digital_values: list[PIValue],
+    ) -> None:
+        """Test conversion of digital state values to DataFrame."""
+        df = converter.values_to_dataframe(digital_values)
+
+        assert isinstance(df, pl.DataFrame)
+        assert len(df) == len(digital_values)
+        assert "timestamp" in df.columns
+        assert "value" in df.columns
+
+        # Values should be preserved as strings, not null
+        assert df["value"].null_count() == 0
+        assert df["value"].dtype == pl.Utf8
+
+        # Check actual values
+        values_list = df["value"].to_list()
+        assert "ON" in values_list
+        assert "OFF" in values_list
+
+    def test_digital_values_preserve_state_names(
+        self,
+        converter: PIToPolarsConverter,
+        mixed_digital_values: list[PIValue],
+    ) -> None:
+        """Test that digital state names are preserved correctly."""
+        df = converter.values_to_dataframe(mixed_digital_values)
+
+        values_list = df["value"].to_list()
+        expected_states = ["RUN", "STOP", "IDLE", "RUN", "FAULT", "RUN", "STOP", "IDLE", "RUN", "STOP"]
+        assert values_list == expected_states
+
+    def test_digital_values_with_quality(
+        self,
+        converter: PIToPolarsConverter,
+        digital_values: list[PIValue],
+    ) -> None:
+        """Test digital value conversion with quality column."""
+        df = converter.values_to_dataframe(digital_values, include_quality=True)
+
+        assert "quality" in df.columns
+        assert df["value"].null_count() == 0
+
+    def test_multi_tag_digital_values(
+        self,
+        converter: PIToPolarsConverter,
+        digital_values: list[PIValue],
+    ) -> None:
+        """Test multi-tag conversion with digital values."""
+        tag_values = {
+            "DIGITAL_TAG1": digital_values,
+            "DIGITAL_TAG2": digital_values,
+        }
+
+        df = converter.multi_tag_to_dataframe(tag_values)
+
+        assert len(df) == 2 * len(digital_values)
+        assert "tag" in df.columns
+        assert df["value"].null_count() == 0
+        assert df["value"].dtype == pl.Utf8
+
+    def test_multi_tag_digital_values_pivot(
+        self,
+        converter: PIToPolarsConverter,
+        digital_values: list[PIValue],
+    ) -> None:
+        """Test multi-tag digital conversion with pivot."""
+        tag_values = {
+            "DIGITAL_TAG1": digital_values,
+            "DIGITAL_TAG2": digital_values,
+        }
+
+        df = converter.multi_tag_to_dataframe(tag_values, pivot=True)
+
+        assert "DIGITAL_TAG1" in df.columns
+        assert "DIGITAL_TAG2" in df.columns
+
+    def test_digital_values_to_series(
+        self,
+        converter: PIToPolarsConverter,
+        digital_values: list[PIValue],
+    ) -> None:
+        """Test conversion of digital values to Series."""
+        series = converter.values_to_series(digital_values, name="digital_states")
+
+        assert isinstance(series, pl.Series)
+        assert series.name == "digital_states"
+        assert len(series) == len(digital_values)
+        assert series.null_count() == 0
+        assert series.dtype == pl.Utf8
+
+    def test_numeric_string_values_remain_numeric(
+        self,
+        converter: PIToPolarsConverter,
+    ) -> None:
+        """Test that numeric strings are converted to floats."""
+        base_time = datetime(2024, 1, 1, 0, 0, 0)
+        values = [
+            PIValue(timestamp=base_time + timedelta(hours=i), value=str(float(i * 10)))
+            for i in range(5)
+        ]
+
+        df = converter.values_to_dataframe(values)
+
+        # Should remain as Float64 since strings are numeric
+        assert df["value"].dtype == pl.Float64
+        assert df["value"].null_count() == 0
+
+    def test_digital_values_with_none(
+        self,
+        converter: PIToPolarsConverter,
+    ) -> None:
+        """Test digital values with some None values."""
+        base_time = datetime(2024, 1, 1, 0, 0, 0)
+        values = [
+            PIValue(timestamp=base_time, value="ON"),
+            PIValue(timestamp=base_time + timedelta(hours=1), value=None),
+            PIValue(timestamp=base_time + timedelta(hours=2), value="OFF"),
+        ]
+
+        df = converter.values_to_dataframe(values)
+
+        assert df["value"].dtype == pl.Utf8
+        assert df["value"].null_count() == 1
+        values_list = df["value"].to_list()
+        assert values_list[0] == "ON"
+        assert values_list[1] is None
+        assert values_list[2] == "OFF"
+
+
 class TestConvenienceFunctions:
     """Tests for convenience conversion functions."""
 
