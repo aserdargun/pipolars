@@ -65,7 +65,7 @@ class PIServerConfig(BaseSettings):
         extra="ignore",
     )
 
-    host: str = Field(description="PI Server hostname or IP address")
+    host: str = Field(default="localhost", description="PI Server hostname or IP address")
     port: int = Field(default=5450, ge=1, le=65535)
     timeout: int = Field(default=30, ge=1, le=300, description="Connection timeout in seconds")
     auth_method: AuthMethod = Field(default=AuthMethod.WINDOWS)

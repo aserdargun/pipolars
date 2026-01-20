@@ -20,6 +20,15 @@ from pipolars.core.config import (
 class TestPIServerConfig:
     """Tests for PIServerConfig class."""
 
+    def test_default_host(self) -> None:
+        """Test that host defaults to localhost when not provided."""
+        config = PIServerConfig()
+
+        assert config.host == "localhost"
+        assert config.port == 5450
+        assert config.timeout == 30
+        assert config.auth_method == AuthMethod.WINDOWS
+
     def test_default_values(self) -> None:
         """Test default configuration values."""
         config = PIServerConfig(host="test-server")

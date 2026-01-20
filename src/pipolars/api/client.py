@@ -81,9 +81,13 @@ class PIClient:
         # Build configuration
         if config:
             self._config = config
-        elif server:
+        elif server is not None:
             if isinstance(server, str):
-                server_config = PIServerConfig(host=server)
+                # Use default if empty/blank string is provided
+                if server.strip():
+                    server_config = PIServerConfig(host=server)
+                else:
+                    server_config = PIServerConfig()  # Uses default host ("localhost")
             else:
                 server_config = server
             self._config = PIConfig(server=server_config)
